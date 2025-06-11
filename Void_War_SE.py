@@ -9,8 +9,8 @@ class VoidWarSaveEditor:
         self.root.title("Void War Save Editor")
         self.root.minsize(600, 700)
         
-        # Weapon mapping dictionary
-        self.weapon_map = {
+        # Weapon mapping dictionary sorted by item ID
+        self.weapon_map = dict(sorted({
             -1.0: "Empty Slot",
             3719.0: "Displacement Missile",
             3380.0: "Sabre Missile",
@@ -84,53 +84,53 @@ class VoidWarSaveEditor:
             3332.0: "Bastard Artillery",
             3333.0: "Graviton Imperator",
             4000.0: "Energy Beam II",
-        }
+        }.items()))
         
-        # Equipment mapping dictionary
-        self.equipment_map = {
+        # Equipment mapping dictionary sorted by item ID
+        self.equipment_map = dict(sorted({
             -1.0: "Empty Slot",
-            2675.0: "Tactical Armor",
-            3525.0: "Duraplate Armor",
-            4480.0: "Heavy Duraplate Armor",
-            2663.0: "Pressure Suit",
-            4410.0: "Tactical Exoskeleton",
-            4085.0: "Dark Matter Prism",
-            4610.0: "Microshield",
-            2615.0: "Hull Integrity Patch",
-            3511.0: "Antidote",
-            3718.0: "Med Drone",
-            1393.0: "Fusion Charge",
-            2686.0: "Repair Drone",
-            4692.0: "Cryofoam",
-            3954.0: "Chaos Engine",
-            2607.0: "Stygian Reagent",
-            4407.0: "Howling Reagent",
-            3997.0: "Ruinous Reagent",
-            2463.0: "Combat Shield",
-            4141.0: "Machine Cannon",
-            3649.0: "Power Sword",
-            4645.0: "Zenith Blade",
-            4541.0: "Ripper Fist",
-            3199.0: "Cursed Spear",
-            2674.0: "Decapitator",
-            2656.0: "Plague Sword",
-            3872.0: "Evisorator",
-            3776.0: "GoreBlaster",
-            2648.0: "HellFire Blade",
             867.0: "Blood Curse",
-            2642.0: "Fireball",
-            3808.0: "Power Glaive",
+            1393.0: "Fusion Charge",
+            2463.0: "Combat Shield",
+            2607.0: "Stygian Reagent",
+            2612.0: "Riot Shield",
+            2615.0: "Hull Integrity Patch",
             2628.0: "Assault Drill",
-            3540.0: "Assault Shield",
-            3716.0: "Blood Spear",
+            2642.0: "Fireball",
+            2648.0: "HellFire Blade",
+            2656.0: "Plague Sword",
+            2663.0: "Pressure Suit",
+            2674.0: "Decapitator",
+            2675.0: "Tactical Armor",
+            2679.0: "Welding Torch",
+            2686.0: "Repair Drone",
             2854.0: "Psychic Shriek",
             2885.0: "Soul Spear",
-            4195.0: "Ballistic Shield",
+            3158.0: "Heavy Translocator",
+            3199.0: "Cursed Spear",
+            3511.0: "Antidote",
+            3525.0: "Duraplate Armor",
+            3540.0: "Assault Shield",
+            3649.0: "Power Sword",
+            3716.0: "Blood Spear",
+            3718.0: "Med Drone",
+            3776.0: "GoreBlaster",
+            3808.0: "Power Glaive",
+            3872.0: "Evisorator",
             3911.0: "Siege Axe",
-            2612.0: "Riot Shield",
-            2679.0: "Welding Torch",
-            3158.0: "Heavy Translocator"
-        }
+            3954.0: "Chaos Engine",
+            3997.0: "Ruinous Reagent",
+            4085.0: "Dark Matter Prism",
+            4141.0: "Machine Cannon",
+            4195.0: "Ballistic Shield",
+            4407.0: "Howling Reagent",
+            4410.0: "Tactical Exoskeleton",
+            4480.0: "Heavy Duraplate Armor",
+            4541.0: "Ripper Fist",
+            4610.0: "Microshield",
+            4645.0: "Zenith Blade",
+            4692.0: "Cryofoam"
+        }.items()))
         
         # Default save location
         self.default_dir = os.path.join(os.getenv('APPDATA'), 'Void_War')
@@ -156,28 +156,32 @@ class VoidWarSaveEditor:
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
         
-        # Scrap Section
-        self.scrap_frame = tk.LabelFrame(self.scrollable_frame, text="Current Scrap", padx=5, pady=5)
-        self.scrap_frame.pack(fill=tk.X, padx=5, pady=5)
+        # Resources Section - Combines Scrap and Missiles
+        self.resources_frame = tk.LabelFrame(self.scrollable_frame, text="Resources", padx=5, pady=5)
+        self.resources_frame.pack(fill=tk.X, padx=5, pady=5)
         
-        self.scrap_label = tk.Label(self.scrap_frame, text="Current Scrap:")
-        self.scrap_label.pack(side=tk.LEFT, padx=(10, 5), pady=5)
+        # Scrap Row
+        scrap_row = tk.Frame(self.resources_frame)
+        scrap_row.pack(fill=tk.X, padx=5, pady=2)
         
-        self.scrap_entry = tk.Entry(self.scrap_frame, width=15)
-        self.scrap_entry.pack(side=tk.LEFT, padx=5, pady=5)
+        scrap_label = tk.Label(scrap_row, text="Scrap:")
+        scrap_label.pack(side=tk.LEFT, padx=(10, 5))
         
-        # Missile Section
-        self.missile_frame = tk.LabelFrame(self.scrollable_frame, text="Current Missiles:", padx=5, pady=5)
-        self.missile_frame.pack(fill=tk.X, padx=5, pady=5)
+        self.scrap_entry = tk.Entry(scrap_row, width=15)
+        self.scrap_entry.pack(side=tk.LEFT, padx=5)
         
-        self.missile_label = tk.Label(self.missile_frame, text="Missile Count:")
-        self.missile_label.pack(side=tk.LEFT, padx=(10, 5), pady=5)
+        # Missile Row
+        missile_row = tk.Frame(self.resources_frame)
+        missile_row.pack(fill=tk.X, padx=5, pady=2)
         
-        self.missile_entry = tk.Entry(self.missile_frame, width=15)
-        self.missile_entry.pack(side=tk.LEFT, padx=5, pady=5)
+        missile_label = tk.Label(missile_row, text="Missiles:")
+        missile_label.pack(side=tk.LEFT, padx=(10, 5))
+        
+        self.missile_entry = tk.Entry(missile_row, width=15)
+        self.missile_entry.pack(side=tk.LEFT, padx=5)
         
         # Cargo Section
-        self.cargo_frame = tk.LabelFrame(self.scrollable_frame, text="Cargo Slots", padx=5, pady=5)
+        self.cargo_frame = tk.LabelFrame(self.scrollable_frame, text="Cargo Slots (4 slots)", padx=5, pady=5)
         self.cargo_frame.pack(fill=tk.X, padx=5, pady=5)
         
         self.cargo_labels = []
@@ -199,7 +203,7 @@ class VoidWarSaveEditor:
             self.cargo_combos.append(combo)
         
         # Equipment Section
-        self.equipment_frame = tk.LabelFrame(self.scrollable_frame, text="Equipment Slots", padx=5, pady=5)
+        self.equipment_frame = tk.LabelFrame(self.scrollable_frame, text="Equipment Slots (8 slots)", padx=5, pady=5)
         self.equipment_frame.pack(fill=tk.X, padx=5, pady=5)
         
         self.equipment_labels = []
