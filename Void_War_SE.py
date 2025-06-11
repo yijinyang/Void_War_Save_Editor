@@ -21,23 +21,69 @@ class VoidWarSaveEditor:
             3409.0: "Claymore Missile",
             3395.0: "Antimatter Bomb",
             2770.0: "Thunder Cannon",
+            3335.0: "Thunder Cannon II",
             2425.0: "Hull Ripper I",
             4184.0: "Hull Ripper II",
+            4185.0: "Heat Beam I",
             3350.0: "Graviton Cannon",
             3635.0: "Heat Beam",
             4051.0: "Flayer Beam",
             3019.0: "Grave Beam",
+            3320.0: "Retributor I",
             3324.0: "Retributor II",
+            3325.0: "Retributor III",
+            3329.0: "Flame Lance",
             1458.0: "Magnetic Pulse I",
+            3339.0: "Magnetic Pulse II",
             3355.0: "Macro Disruptor",
             3361.0: "Kinetic Lance",
             3356.0: "Energy Lance",
+            3357.0: "Heavy Lance",
             3358.0: "Macro Lance",
             3053.0: "Auto-Disruptor",
             3334.0: "Storm Cannon I",
+            3336.0: "Storm Cannon II",
             3340.0: "Storm Cannon III",
+            3341.0: "Storm Cannon Array",
             3914.0: "Fusilade I",
-            3388.0: "Fusilade II"
+            3388.0: "Fusilade II",
+            4158.0: "Displacement Field Emitter",
+            3068.0: "Penetrator",
+            3342.0: "Radium Blaster I",
+            3343.0: "Radium Blaster II",
+            3345.0: "Radium Blaster III",
+            3989.0: "Fury Missile",
+            3337.0: "Titan Multicannon",
+            3347.0: "Putrefactor I",
+            3348.0: "Putrefactor II",
+            3349.0: "Toxin Carronade",
+            3352.0: "Disruptor",
+            3353.0: "Twin Disruptor",
+            3354.0: "Heavy Disruptor",
+            3338.0: "Plasma Battery",
+            3361.0: "Kinetic Lance",
+            3364.0: "Thermal Lance",
+            3365.0: "Heavy Ion Lance",
+            3366.0: "Plasma Lance",
+            3370.0: "Gravitic Lance",
+            3375.0: "Gravitic Lance",
+            3376.0: "Spirit Lance",
+            3378.0: "Neural Lance",
+            3381.0: "Warp Lance",
+            3382.0: "Nemesis Lance",
+            3383.0: "Void Mass Driver",
+            3384.0: "Warpflame Lance",
+            3386.0: "Magnetic Pulse I",
+            3389.0: "Magnetic Pulse II",
+            3390.0: "Magnetic Pulse III",
+            3394.0: "Shiv Missile",
+            3398.0: "Acid Missile",
+            3399.0: "Graviton Bomb",
+            3404.0: "Heavy Flayer Missile",
+            3330.0: "Bolt Cannon",
+            3332.0: "Bastard Artillery",
+            3333.0: "Graviton Imperator",
+            4000.0: "Energy Beam II",
         }
         
         # Equipment mapping dictionary
@@ -71,7 +117,19 @@ class VoidWarSaveEditor:
             3872.0: "Evisorator",
             3776.0: "GoreBlaster",
             2648.0: "HellFire Blade",
-            867.0: "BloodCurse"
+            867.0: "Blood Curse",
+            2642.0: "Fireball",
+            3808.0: "Power Glaive",
+            2628.0: "Assault Drill",
+            3540.0: "Assault Shield",
+            3716.0: "Blood Spear",
+            2854.0: "Psychic Shriek",
+            2885.0: "Soul Spear",
+            4195.0: "Ballistic Shield",
+            3911.0: "Siege Axe",
+            2612.0: "Riot Shield",
+            2679.0: "Welding Torch",
+            3158.0: "Heavy Translocator"
         }
         
         # Default save location
@@ -99,7 +157,7 @@ class VoidWarSaveEditor:
         self.scrollbar.pack(side="right", fill="y")
         
         # Scrap Section
-        self.scrap_frame = tk.LabelFrame(self.scrollable_frame, text="Scrap Resources", padx=5, pady=5)
+        self.scrap_frame = tk.LabelFrame(self.scrollable_frame, text="Current Scrap", padx=5, pady=5)
         self.scrap_frame.pack(fill=tk.X, padx=5, pady=5)
         
         self.scrap_label = tk.Label(self.scrap_frame, text="Current Scrap:")
