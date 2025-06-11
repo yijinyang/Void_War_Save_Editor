@@ -7,9 +7,9 @@ class VoidWarSaveEditor:
     def __init__(self, root):
         self.root = root
         self.root.title("Void War Save Editor")
-        self.root.minsize(600, 700)
+        self.root.minsize(600, 800)  # Increased height for new modules section
         
-        # Weapon mapping dictionary sorted by item ID
+        # Weapon mapping dictionary
         self.weapon_map = dict(sorted({
             -1.0: "Empty Slot",
             3719.0: "Displacement Missile",
@@ -84,9 +84,11 @@ class VoidWarSaveEditor:
             3332.0: "Bastard Artillery",
             3333.0: "Graviton Imperator",
             4000.0: "Energy Beam II",
+            3044.0: "Neuralizer",
+            3849.0: "Gravitic Ray"
         }.items()))
         
-        # Equipment mapping dictionary sorted by item ID
+        # Equipment mapping dictionary
         self.equipment_map = dict(sorted({
             -1.0: "Empty Slot",
             867.0: "Blood Curse",
@@ -99,6 +101,8 @@ class VoidWarSaveEditor:
             2615.0: "Hull Integrity Patch",
             2628.0: "Assault Drill",
             2630.0: "Beam Carbine",
+            2635.0: "Siege Armor",
+            2641.0: "Fetid Rags",
             2642.0: "Fireball",
             2645.0: "Force Shield",
             2648.0: "HellFire Blade",
@@ -121,6 +125,7 @@ class VoidWarSaveEditor:
             3158.0: "Heavy Translocator",
             3199.0: "Cursed Spear",
             3363.0: "Power Axe",
+            3446.0: "Spiked Club",
             3511.0: "Antidote",
             3525.0: "Duraplate Armor",
             3534.0: "Drain Strength",
@@ -137,9 +142,12 @@ class VoidWarSaveEditor:
             3954.0: "Chaos Engine",
             3959.0: "Blessed Blade",
             3997.0: "Ruinous Reagent",
+            4029.0: "Parasite Shield",
             4085.0: "Dark Matter Prism",
+            4124.0: "Athame",
             4141.0: "Machine Cannon",
             4164.0: "Rotblaster",
+            4187.0: "Unholy Talisman",
             4195.0: "Ballistic Shield",
             4221.0: "Assault Pistol",
             4280.0: "Mind Bolt",
@@ -150,11 +158,54 @@ class VoidWarSaveEditor:
             4464.0: "Combat Knife",
             4480.0: "Heavy Duraplate Armor",
             4501.0: "Aetheric Gate",
+            4528.0: "Arc Talons",
             4541.0: "Ripper Fist",
             4610.0: "Microshield",
             4645.0: "Zenith Blade",
             4692.0: "Cryofoam"
         }.items()))
+        
+        # Module mapping dictionary
+        self.module_map = {
+            "oModule_preChargedWeapons": "Night Field: Begin fights with fully pre-charged weapons.",
+            "oModule_huskRepairSpeed": "Support Prosthetics: Friendly Machine Slave units repair 50% faster.",
+            "oModule_commander_speed": "Hyperlinked Neural Socket: +50% move speed to commander.",
+            "oModule_firstWeaponDoubleShots": "Mirrored Fire Control: The first ttime your ship fires a non-beam weapon, that weapon's shot count is doubled.",
+            "oModule_consumablesFireProjectiles": "Seeker Missiles: Friendly crew fire a missile at the enemy ship upon activating a consumable.",
+            "oModule_shotsBreakDoors": "Demolisher Rounds: Your ship's weapons that deal hull damage now break doors on impact.",
+            "oModule_systemHalvesFireDamage": "Heat Shielding: Systems and subsystems take half damage from fire.",
+            "oModule_spellEvasion": "Spectral Drives: Your ship can now dodge spells using its evasion attribute.",
+            "oModule_HP_technoLow": "Hardened Casing: +10 HP to all Machine Slave Units.",
+            "oModule_HP_techno": "Guardian Protocols: +10 HP to all Machine Priest units.",
+            "oModule_HP_death": "Pathogenic Recycler Unit: +10 HP to all Death Cultist units.",
+            "oModule_HP_demon": "Desecrated Shrine: +10 HP to all Demonic units.",
+            "oModule_forceShieldOnWeaponShot": "Barrier Relay: For every other weapon you fire, gain a force shield on a random room: up to a maximum of 2.",
+            "oModule_rewardExtraCrystal": "Thrice-cursed Reliquary: Frequently gain a Dark Matter Prism: in addition to normal rewards after defeating an enemy ship.",
+            "oModule_poisonSlowsRepair": "Corpse Effigy: Halves the repair speed of poisoned enemies.",
+            "oModule_doorBreakStun": "Assault Harnesses: Your crew will stun nearby enemy crew for 8s upon destroying a door.",
+            "oModule_sensorVisionGainEvasion": "Vector Analyzer: Gain 10% Evasion while your Sensor Status is Active.",
+            "oModule_sensorVisionGainCrewDamage": "Carnage Optics: Your ship's weapons deal +10 crew damage to enemies while your Sensor Status is Active.",
+            "oModule_crewExplodeOnDeath": "Terminus Bands: All friendly crew explode on death dealing 10 damage to nearby enemy crew.",
+            "oModule_fightStartDamageEnemies": "Ancient Psytronome: Applies 5-22 damage to all enemy crew at the start of every fight.",
+            "oModule_DPS_technoLow":" Combat Subroutines: +2 DPS to all Machine Slave units.",
+            "oModule_DPS_techno": "Ocular-Laser Implants: +2 DPS to all Machine Priest units.",
+            "oModule_DPS_empire": "Standard-Issue Sidearm: +2 DPS to all Imperial Citizen units.",
+            "oModule_DPS_commanderFightStart": "Tower of Skulls: Commander gains +10 DPS for 30 seconds at the start of every fight.",
+            "oModule_DPS_war": "Psyk-Chem Injectors: +2 DPS to all War Cultist units.",
+            "oModule_DPS_death": "Death Totem: +2 DPS to all Death Cultists units.",
+            "oModule_DPS_raider": "Volt Knives: +2 DPS to all Raider Outlaw units.",
+            "oModule_DPS_demon": "Aberrant Conduit: +2 DPS to all Demonic units.",
+            "oModule_bonusCrewThrallSkeleRot": "Chaos Star: Calls upon the dark gods in times of need.",
+            "oModule_firstEnemyShotMisses": "Distortion Sphere: First enemy ship weapon fired at your ship will always miss.",
+            "oModule_rewardExtraChoice": "God-King's Mantle: Select from three rewards instead of two when choosing rewards.",
+            "oModule_poisonDoubleDamage": "Sigil of Rot: Poison does double damage to enemy crew.",
+            "oModule_lanceChargesRandomWeapon": "Seraphic Resonators: Each lance shot you fire fully charges one random, uncharged weapon: must be powered.",
+            "oModule_restHealBonus": "Circadian Stabilizer: Resting heals 15% extra HP.",
+            "oModule_DPS_inVacuum": "Splinter Bombs: Friendly crew gain +3 DPS when fighting in vacuum.",
+            "oModule_doorBreakAfterBoarding": "Shatterfields: Your crew gain 1000% door break speed for 10s when boarding an enemy ship for the first time during a fight using a launch bay.",
+            "oModule_launchBayEatsEnemies": "Carnivore Hatch: Launch Bays can load enemy crew. Prioritizes enemy crew and deals 140 damage to them while loading. Triggers 30s cooldown after use.",
+            "oModule_consumablesGrantHP": "Bio-Regenerator: Consumables restore 10 HP in addition to their normal effect."
+        }
         
         # Default save location
         self.default_dir = os.path.join(os.getenv('APPDATA'), 'Void_War')
@@ -257,6 +308,29 @@ class VoidWarSaveEditor:
             self.equipment_labels.append(label)
             self.equipment_combos.append(combo)
             self.quantity_entries.append(qty_entry)
+            
+        # Ship Modules Section
+        self.modules_frame = tk.LabelFrame(self.scrollable_frame, text="Ship Modules (3 slots)", padx=5, pady=5)
+        self.modules_frame.pack(fill=tk.X, padx=5, pady=5)
+        
+        self.module_labels = []
+        self.module_combos = []
+        self.module_slot_present = [False, False, False]  # Track which slots exist
+        
+        for i in range(3):
+            slot_frame = tk.Frame(self.modules_frame)
+            slot_frame.pack(fill=tk.X, padx=5, pady=2)
+            
+            label = tk.Label(slot_frame, text=f"Slot {i+1}:", width=8, anchor="w")
+            label.pack(side=tk.LEFT, padx=(5, 0))
+            
+            combo = ttk.Combobox(slot_frame, width=25, state="normal")
+            module_names = sorted([name for name in self.module_map.values()])
+            combo['values'] = ["Empty Slot"] + module_names
+            combo.pack(side=tk.LEFT, padx=5, pady=2, fill=tk.X, expand=True)
+            
+            self.module_labels.append(label)
+            self.module_combos.append(combo)
         
         # Button Section
         self.btn_frame = tk.Frame(self.scrollable_frame)
@@ -365,6 +439,32 @@ class VoidWarSaveEditor:
                     self.quantity_entries[i].insert(0, "0.0")
                 self.status.config(text="Equipment lists not found - initialized with empty slots")
             
+            # Find ship modules
+            self.module_slot_present = [False, False, False]  # Reset presence flags
+            
+            # Check for each module slot (0.0, 1.0, 2.0)
+            for slot_index in range(3):
+                # Look for the module slot pattern
+                pattern = rf'"moduleSlot":{slot_index}\.0.*?"obj":"([^"]+)"'
+                match = re.search(pattern, self.save_data)
+                
+                if match:
+                    module_obj = match.group(1)
+                    self.module_slot_present[slot_index] = True
+                    
+                    # Convert obj to display name if available
+                    if module_obj in self.module_map:
+                        display_name = self.module_map[module_obj]
+                    else:
+                        display_name = module_obj
+                    
+                    self.module_combos[slot_index].set(display_name)
+                    self.module_combos[slot_index].config(state="readonly")
+                else:
+                    # Slot not found, disable and clear
+                    self.module_combos[slot_index].set("")
+                    self.module_combos[slot_index].config(state="disabled")
+            
             self.save_btn.config(state="normal")
             self.status.config(text=f"Loaded: {os.path.basename(file_path)}")
                 
@@ -446,6 +546,34 @@ class VoidWarSaveEditor:
                     except ValueError:
                         raise ValueError(f"Invalid value in equipment slot {i+1}: '{eq_value}'. Must be an equipment name or number")
             
+            # Process module changes
+            updated_data = self.save_data
+            for slot_index in range(3):
+                if self.module_slot_present[slot_index]:
+                    display_name = self.module_combos[slot_index].get().strip()
+                    
+                    # Convert display name back to object name if available
+                    if display_name in self.module_map.values():
+                        # Find the object name for this display name
+                        obj_name = None
+                        for obj, name in self.module_map.items():
+                            if name == display_name:
+                                obj_name = obj
+                                break
+                    else:
+                        obj_name = display_name
+                    
+                    if obj_name:
+                        # Create pattern to find the existing module entry
+                        pattern = rf'(("moduleSlot":{slot_index}\.0.*?"obj":")[^"]+("))'
+                        
+                        # Replace with new object name
+                        updated_data = re.sub(
+                            pattern,
+                            rf'\1{obj_name}\3',
+                            updated_data
+                        )
+            
             # Create backup
             if os.path.exists(self.backup_path):
                 os.remove(self.backup_path)
@@ -455,7 +583,7 @@ class VoidWarSaveEditor:
             updated_data = re.sub(
                 r'("currScrap":)(\d+\.?\d*)',
                 f'\\g<1>{new_scrap}',
-                self.save_data
+                updated_data
             )
             
             # Update missile count
@@ -503,12 +631,19 @@ class VoidWarSaveEditor:
                  for i in range(8)]
             )
             
+            # Module summary
+            module_summary = []
+            for i in range(3):
+                if self.module_slot_present[i]:
+                    module_summary.append(f"Slot {i+1}: {self.module_combos[i].get()}")
+            
             messagebox.showinfo("Success", 
                 f"Save file updated successfully!\n\n"
                 f"Scrap: {new_scrap}\n"
                 f"Missiles: {new_missile}\n\n"
                 f"Cargo Summary:\n{cargo_summary}\n\n"
                 f"Equipment Summary:\n{equipment_summary}\n\n"
+                f"Module Summary:\n" + "\n".join(module_summary) + "\n\n"
                 f"Backup created: {os.path.basename(self.backup_path)}")
             
         except Exception as e:
