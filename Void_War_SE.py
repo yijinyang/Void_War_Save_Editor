@@ -85,7 +85,8 @@ class VoidWarSaveEditor:
             3333.0: "Graviton Imperator",
             4000.0: "Energy Beam II",
             3044.0: "Neuralizer",
-            3849.0: "Gravitic Ray"
+            3849.0: "Gravitic Ray",
+            3148.0: "Siege Missile"
         }.items()))
         
         # Equipment mapping dictionary
@@ -154,6 +155,7 @@ class VoidWarSaveEditor:
             4312.0: "Machine Pistol",
             4407.0: "Howling Reagent",
             4410.0: "Tactical Exoskeleton",
+            4426.0: "Necrotizing Reagents",
             4445.0: "Treasonous Whispers",
             4464.0: "Combat Knife",
             4480.0: "Heavy Duraplate Armor",
@@ -552,6 +554,10 @@ class VoidWarSaveEditor:
                 if self.module_slot_present[slot_index]:
                     display_name = self.module_combos[slot_index].get().strip()
                     
+                    # Skip if nothing selected
+                    if not display_name:
+                        continue
+                    
                     # Convert display name back to object name if available
                     if display_name in self.module_map.values():
                         # Find the object name for this display name
@@ -565,12 +571,12 @@ class VoidWarSaveEditor:
                     
                     if obj_name:
                         # Create pattern to find the existing module entry
-                        pattern = rf'(("moduleSlot":{slot_index}\.0.*?"obj":")[^"]+("))'
+                        pattern = rf'("moduleSlot":{slot_index}\.0[^,]*,"obj":")[^"]+(")'
                         
                         # Replace with new object name
                         updated_data = re.sub(
                             pattern,
-                            rf'\1{obj_name}\3',
+                            rf'\g<1>{obj_name}\g<2>',
                             updated_data
                         )
             
