@@ -1,0 +1,1 @@
+python -m PyInstaller Void_War_SE.py --onefile --windowed --noconsole
