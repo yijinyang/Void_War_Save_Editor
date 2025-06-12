@@ -7,7 +7,7 @@ class VoidWarSaveEditor:
     def __init__(self, root):
         self.root = root
         self.root.title("Void War Save Editor")
-        self.root.minsize(600, 800)  # Increased height for new modules section
+        self.root.minsize(600, 800)
         
         # Weapon mapping dictionary
         self.weapon_map = dict(sorted({
@@ -86,15 +86,18 @@ class VoidWarSaveEditor:
             4000.0: "Energy Beam II",
             3044.0: "Neuralizer",
             3849.0: "Gravitic Ray",
-            3148.0: "Siege Missile"
+            3148.0: "Siege Missile",
+            3546.0: "Macro Devastator"
         }.items()))
         
         # Equipment mapping dictionary
         self.equipment_map = dict(sorted({
             -1.0: "Empty Slot",
+            281.0: "Prismatic Veil",
             846.0: "Holy Scepter",
             867.0: "Blood Curse",
             1393.0: "Fusion Charge",
+            2021.0: "Breach Charge",
             2426.0: "Purify",
             2463.0: "Combat Shield",
             2555.0: "Soul Storm",
@@ -108,6 +111,9 @@ class VoidWarSaveEditor:
             2642.0: "Fireball",
             2645.0: "Force Shield",
             2648.0: "HellFire Blade",
+            2649.0: "Magma Gun",
+            2650.0: "Ion Carbine",
+            2651.0: "Grav-Carbine",
             2656.0: "Plague Sword",
             2657.0: "Electro Maul",
             2660.0: "Power Field",
@@ -121,11 +127,15 @@ class VoidWarSaveEditor:
             2854.0: "Psychic Shriek",
             2885.0: "Soul Spear",
             2961.0: "Blessed Hammer",
+            2988.0: "Blessed Machine Cannon",
             3084.0: "Soul Barrage",
             3089.0: "Imperial Aegis",
             3091.0: "Fear",
+            3097.0: "Bloated Reagents",
             3099.0: "Rejuvenate",
+            3123.0: "Summon Thrall",
             3132.0: "Power Claw",
+            3142.0: "Chaos Armor",
             3158.0: "Heavy Translocator",
             3171.0: "Fleshy Reagents",
             3199.0: "Cursed Spear",
@@ -133,26 +143,35 @@ class VoidWarSaveEditor:
             3438.0: "Tactical Shield",
             3446.0: "Spiked Club",
             3449.0: "Fiendish Reagents",
+            3496.0: "Fell Axe",
             3511.0: "Antidote",
+            3517.0: "Hungering Reagents",
             3525.0: "Duraplate Armor",
             3534.0: "Drain Strength",
             3540.0: "Assault Shield",
+            3566.0: "Havoc Maul",
             3574.0: "Plasma Projector",
             3584.0: "Summon Fleshlings",
+            3616.0: "Arc Rifle",
             3661.0: "Noxious Blast",
             3649.0: "Power Sword",
             3659.0: "Doom Reagents",
             3716.0: "Blood Spear",
             3718.0: "Med Drone",
+            3771.0: "Machine Rifle",
             3776.0: "Goreblaster",
             3808.0: "Power Glaive",
+            3848.0: "Cult Blade",
             3872.0: "Evisorator",
             3878.0: "Grav Spear",
             3911.0: "Siege Axe",
             3954.0: "Chaos Engine",
             3959.0: "Blessed Blade",
-            3997.0: "Ruinous Reagent",
+            3997.0: "Ruinous Reagents",
+            4009.0: "Summon Skeleton",
             4029.0: "Parasite Shield",
+            4055.0: "Electrobaton",
+            4073.0: "Exalted Reagents",
             4085.0: "Dark Matter Prism",
             4124.0: "Athame",
             4141.0: "Machine Cannon",
@@ -162,6 +181,8 @@ class VoidWarSaveEditor:
             4221.0: "Assault Pistol",
             4280.0: "Mind Bolt",
             4312.0: "Machine Pistol",
+            4328.0: "Translocator",
+            4361.0: "Smother",
             4407.0: "Howling Reagent",
             4410.0: "Tactical Exoskeleton",
             4426.0: "Necrotizing Reagents",
@@ -170,13 +191,18 @@ class VoidWarSaveEditor:
             4480.0: "Heavy Duraplate Armor",
             4482.0: "Summon Hound",
             4501.0: "Aetheric Gate",
+            4515.0: "Combat Mesh",
+            4518.0: "War Pick",
             4528.0: "Arc Talons",
+            4529.0: "Summon Stygian Worm",
             4541.0: "Ripper Fist",
             4550.0: "Grenade Launcher",
+            4569.0: "Ferro-plas Vest",
             4610.0: "Microshield",
             4625.0: "Burden",
             4645.0: "Zenith Blade",
             4659.0: "Chaotic Rift",
+            4680.0: "Chronofield",
             4692.0: "Cryofoam"
         }.items()))
         
@@ -197,12 +223,14 @@ class VoidWarSaveEditor:
             "oModule_HP_raider": "Adaptive Nanoplate: +10 HP to all Raider Outlaw units.",
             "oModule_HP_war": "Synaptic Enforcers: +10 HP to all War Cultist units.",
             "oModule_HP_empire": "Meditech Boosters: +10 HP to all Imperial Citizen units.",
+            "oModule_HP_blood": "Pain Engine: +10 HP to all Blood Cultist units.",
             "oModule_doorBreakInvulnerable": "Bunker Drills: Your crew are invulnerable against crew attacks while breaking doors.",
             "oModule_forceShieldOnWeaponShot": "Barrier Relay: For every other weapon you fire, gain a force shield on a random room: up to a maximum of 2.",
             "oModule_rewardExtraCrystal": "Thrice-cursed Reliquary: Frequently gain a Dark Matter Prism: in addition to normal rewards after defeating an enemy ship.",
             "oModule_poisonSlowsRepair": "Corpse Effigy: Halves the repair speed of poisoned enemies.",
             "oModule_doorBreakStun": "Assault Harnesses: Your crew will stun nearby enemy crew for 8s upon destroying a door.",
             "oModule_sensorVisionGainEvasion": "Vector Analyzer: Gain 10% Evasion while your Sensor Status is Active.",
+            "oModule_sensorVisionLoseEvasion": "Inertial Probe: Enemy ships lose 10% Evasion when your Sensor Status is Active.",
             "oModule_sensorVisionGainCrewDamage": "Carnage Optics: Your ship's weapons deal +10 crew damage to enemies while your Sensor Status is Active.",
             "oModule_crewExplodeOnDeath": "Terminus Bands: All friendly crew explode on death dealing 10 damage to nearby enemy crew.",
             "oModule_fightStartDamageEnemies": "Ancient Psytronome: Applies 5-22 damage to all enemy crew at the start of every fight.",
@@ -215,6 +243,7 @@ class VoidWarSaveEditor:
             "oModule_DPS_raider": "Volt Knives: +2 DPS to all Raider Outlaw units.",
             "oModule_DPS_demon": "Aberrant Conduit: +2 DPS to all Demonic units.",
             "oModule_DPS_blood": "Altar of Blood: +2 DPS to all Blood Cultist units.",
+            "oModule_lanceBonusDamageCostCrewHP": "Demon Lance: Lances deal 1 extra damage for each crew aboard your ship. Each lance shot you fire depletes the current HP of all shipboard crew by 50%.",
             "oModule_repairAppliesCleanse": "Purity of Steel: Upon repairing a system, friendly crew gain immunity to debilitating effects for 10 seconds.",
             "oModule_bonusCrewThrallSkeleRot": "Chaos Star: Calls upon the dark gods in times of need.",
             "oModule_firstEnemyShotMisses": "Distortion Sphere: First enemy ship weapon fired at your ship will always miss.",
@@ -227,7 +256,8 @@ class VoidWarSaveEditor:
             "oModule_doorBreakAfterBoarding": "Shatterfields: Your crew gain 1000% door break speed for 10s when boarding an enemy ship for the first time during a fight using a launch bay.",
             "oModule_launchBayEatsEnemies": "Carnivore Hatch: Launch Bays can load enemy crew. Prioritizes enemy crew and deals 140 damage to them while loading. Triggers 30s cooldown after use.",
             "oModule_consumablesGrantHP": "Bio-Regenerator: Consumables restore 10 HP in addition to their normal effect.",
-            "oModule_bonusCrewHound": "Seal of Cerberus: Call upon a demonic Hound."
+            "oModule_bonusCrewHound": "Seal of Cerberus: Call upon a demonic Hound.",
+            "oModule_bonusCrewOnEnemySpellCast": "Vile Sepulchre: Once per fight, summon a random demon on the first enemy crew to use a psychic power."
         }
         
         # Default save location
