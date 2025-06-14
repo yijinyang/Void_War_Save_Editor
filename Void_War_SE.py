@@ -278,6 +278,7 @@ class VoidWarSaveEditor:
             "oModule_fightStartHullInvulnerable": "Temporal Shroud: Immunity to hull damage and system damage from enemy projectiles for the first 25 seconds of combat.",
             "oModule_spellsDoDamage": "Hate Matrix: All non-summoning psychic projetiles deal 1 extra damage to the targeted ship in addition to their normal effect.",
             "oModule_firstWeaponAlwaysHits": "Ghost-Linked Reticle: The first time your ship fires a weapon during a fight, it always hits.",
+            "oModule_DPS_HP_demon": "Obscene Organ: +1 DPS and +10 HP to all Demonic units",
             "oModule_bonusCrewOnEnemySpellCast": "Vile Sepulchre: Once per fight, summon a random demon on the first enemy crew to use a psychic power."
         }
         
