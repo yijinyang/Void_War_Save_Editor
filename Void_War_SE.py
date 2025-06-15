@@ -621,37 +621,38 @@ class VoidWarSaveEditor:
                     except ValueError:
                         raise ValueError(f"Invalid value in equipment slot {i+1}: '{eq_value}'. Must be an equipment name or number")
             
-            # Process module changes
-            updated_data = self.save_data
-            for slot_index in range(3):
-                if self.module_slot_present[slot_index]:
-                    display_name = self.module_combos[slot_index].get().strip()
-                    
-                    # Skip if nothing selected
-                    if not display_name:
-                        continue
-                    
-                    # Convert display name back to object name if available
-                    if display_name in self.module_map.values():
-                        # Find the object name for this display name
-                        obj_name = None
-                        for obj, name in self.module_map.items():
-                            if name == display_name:
-                                obj_name = obj
-                                break
-                    else:
-                        obj_name = display_name
-                    
-                    if obj_name:
-                        # Create pattern to find the existing module entry
-                        pattern = rf'("moduleSlot":{slot_index}\.0[^,]*,"obj":")[^"]+(")'
+                # Process module changes
+                updated_data = self.save_data
+                for slot_index in range(3):
+                    if self.module_slot_present[slot_index]:
+                        display_name = self.module_combos[slot_index].get().strip()
                         
-                        # Replace with new object name
-                        updated_data = re.sub(
-                            pattern,
-                            rf'\g<1>{obj_name}\g<2>',
-                            updated_data
-                        )
+                        # Skip if nothing selected
+                        if not display_name:
+                            continue
+                        
+                        # Convert display name back to object name if available
+                        if display_name in self.module_map.values():
+                            # Find the object name for this display name
+                            obj_name = None
+                            for obj, name in self.module_map.items():
+                                if name == display_name:
+                                    obj_name = obj
+                                    break
+                        else:
+                            obj_name = display_name
+                        
+                        if obj_name:
+                            # Create pattern to find the existing module entry
+                            pattern = rf'("moduleSlot":{slot_index}\.0.*?"obj":")[^"]+(")'
+                            
+                            # Replace with new object name
+                            updated_data = re.sub(
+                                pattern,
+                                rf'\g<1>{obj_name}\g<2>',
+                                updated_data,
+                                flags=re.DOTALL  # Critical fix
+                            )
             
             # Create backup
             if os.path.exists(self.backup_path):
