@@ -9,222 +9,25 @@ class VoidWarSaveEditor:
         self.root.title("Void War Save Editor")
         self.root.minsize(600, 800)
         
-        # Weapon mapping dictionary
-        self.weapon_map = dict(sorted({
+        # Weapon mapping dictionary with string keys
+        self.weapon_map = {
             -1.0: "Empty Slot",
-            3719.0: "Displacement Missile",
-            3380.0: "Sabre Missile",
-            3408.0: "Blight Bomb",
-            3889.0: "Flayer Missile",
-            3431.0: "Rift Bomb",
-            3427.0: "Heavy Disruptor Missile",
-            3423.0: "Hellfire Missile",
-            3409.0: "Claymore Missile",
-            3395.0: "Antimatter Bomb",
-            2770.0: "Thunder Cannon",
-            3335.0: "Thunder Cannon II",
-            2425.0: "Hull Ripper I",
-            4184.0: "Hull Ripper II",
-            4185.0: "Heat Beam I",
-            3350.0: "Graviton Cannon",
-            3635.0: "Heat Beam",
-            4051.0: "Flayer Beam",
-            3019.0: "Grave Beam",
-            3320.0: "Retributor I",
-            3324.0: "Retributor II",
-            3325.0: "Retributor III",
-            3329.0: "Flame Lance",
-            1458.0: "Magnetic Pulse I",
-            3339.0: "Magnetic Pulse II",
-            3355.0: "Macro Disruptor",
-            3361.0: "Kinetic Lance",
-            3356.0: "Energy Lance",
-            3357.0: "Heavy Lance",
-            3358.0: "Macro Lance",
-            3053.0: "Auto-Disruptor",
-            3334.0: "Storm Cannon I",
-            3336.0: "Storm Cannon II",
-            3340.0: "Storm Cannon III",
-            3341.0: "Storm Cannon Array",
-            3914.0: "Fusilade I",
-            3388.0: "Fusilade II",
-            4158.0: "Displacement Field Emitter",
-            3068.0: "Penetrator",
-            3342.0: "Radium Blaster I",
-            3343.0: "Radium Blaster II",
-            3345.0: "Radium Blaster III",
-            3989.0: "Fury Missile",
-            3337.0: "Titan Multicannon",
-            3347.0: "Putrefactor I",
-            3348.0: "Putrefactor II",
-            3349.0: "Toxin Carronade",
-            3352.0: "Disruptor",
-            3353.0: "Twin Disruptor",
-            3354.0: "Heavy Disruptor",
-            3338.0: "Plasma Battery",
-            3361.0: "Kinetic Lance",
-            3364.0: "Thermal Lance",
-            3365.0: "Heavy Ion Lance",
-            3366.0: "Plasma Lance",
-            3370.0: "Gravitic Lance",
-            3375.0: "Gravitic Lance",
-            3376.0: "Spirit Lance",
-            3378.0: "Neural Lance",
-            3381.0: "Warp Lance",
-            3382.0: "Nemesis Lance",
-            3383.0: "Void Mass Driver",
-            3384.0: "Warpflame Lance",
-            3386.0: "Magnetic Pulse I",
-            3389.0: "Magnetic Pulse II",
-            3390.0: "Magnetic Pulse III",
-            3394.0: "Shiv Missile",
-            3398.0: "Acid Missile",
-            3399.0: "Graviton Bomb",
-            3404.0: "Heavy Flayer Missile",
-            3330.0: "Bolt Cannon",
-            3332.0: "Bastard Artillery",
-            3333.0: "Graviton Imperator",
-            4000.0: "Energy Beam II",
-            3044.0: "Neuralizer",
-            3849.0: "Gravitic Ray",
-            3148.0: "Siege Missile",
-            3546.0: "Macro Devastator",
-            3430.0: "Terror Missile",
-            4671.0: "Devastator Beam",
-            2599.0: "Energy Beam",
-            2853.0: "Inferno Beam",
-            3042.0: "Corruption Beam"
-        }.items()))
+            "oWPDisruptor2": "Twin Disruptor",
+        }
         
-        # Equipment mapping dictionary
-        self.equipment_map = dict(sorted({
+        # Create reverse weapon map for saving
+        self.weapon_display_to_key = {v: k for k, v in self.weapon_map.items()}
+        
+        # Equipment mapping dictionary with string keys
+        self.equipment_map = {
             -1.0: "Empty Slot",
-            281.0: "Prismatic Veil",
-            846.0: "Holy Scepter",
-            867.0: "Blood Curse",
-            1393.0: "Fusion Charge",
-            2021.0: "Breach Charge",
-            2426.0: "Purify",
-            2463.0: "Combat Shield",
-            2473.0: "Siege Claw",
-            2555.0: "Soul Storm",
-            2607.0: "Stygian Reagent",
-            2612.0: "Riot Shield",
-            2615.0: "Hull Integrity Patch",
-            2628.0: "Assault Drill",
-            2630.0: "Beam Carbine",
-            2631.0: "Thirsting Glaive",
-            2635.0: "Siege Armor",
-            2641.0: "Fetid Rags",
-            2642.0: "Fireball",
-            2643.0: "Hellfire Cuirass",
-            2645.0: "Force Shield",
-            2648.0: "HellFire Blade",
-            2649.0: "Magma Gun",
-            2650.0: "Ion Carbine",
-            2651.0: "Grav-Carbine",
-            2654.0: "Oxygen Tank",
-            2656.0: "Plague Sword",
-            2657.0: "Electro Maul",
-            2660.0: "Power Field",
-            2662.0: "Power Hammer",
-            2663.0: "Pressure Suit",
-            2672.0: "Assault Sledge",
-            2674.0: "Decapitator",
-            2673.0: "Servo-Arm",
-            2675.0: "Tactical Armor",
-            2679.0: "Welding Torch",
-            2686.0: "Repair Drone",
-            2827.0: "Fire Suit",
-            2854.0: "Psychic Shriek",
-            2885.0: "Soul Spear",
-            2961.0: "Blessed Hammer",
-            2988.0: "Blessed Machine Cannon",
-            3084.0: "Soul Barrage",
-            3089.0: "Imperial Aegis",
-            3091.0: "Fear",
-            3097.0: "Bloated Reagents",
-            3099.0: "Rejuvenate",
-            3123.0: "Summon Thrall",
-            3132.0: "Power Claw",
-            3142.0: "Chaos Armor",
-            3158.0: "Heavy Translocator",
-            3164.0: "Summon Fiend",
-            3171.0: "Fleshy Reagents",
-            3199.0: "Cursed Spear",
-            3363.0: "Power Axe",
-            3438.0: "Tactical Shield",
-            3446.0: "Spiked Club",
-            3449.0: "Fiendish Reagents",
-            3496.0: "Fell Axe",
-            3511.0: "Antidote",
-            3517.0: "Hungering Reagents",
-            3525.0: "Duraplate Armor",
-            3534.0: "Drain Strength",
-            3539.0: "Cathedral Ward",
-            3540.0: "Assault Shield",
-            3566.0: "Havoc Maul",
-            3574.0: "Plasma Projector",
-            3584.0: "Summon Fleshlings",
-            3616.0: "Arc Rifle",
-            3661.0: "Noxious Blast",
-            3649.0: "Power Sword",
-            3659.0: "Doom Reagents",
-            3716.0: "Blood Spear",
-            3718.0: "Med Drone",
-            3771.0: "Machine Rifle",
-            3776.0: "Goreblaster",
-            3808.0: "Power Glaive",
-            3844.0: "Gore Sledge",
-            3848.0: "Cult Blade",
-            3872.0: "Evisorator",
-            3878.0: "Grav Spear",
-            3911.0: "Siege Axe",
-            3954.0: "Chaos Engine",
-            3959.0: "Blessed Blade",
-            3974.0: "Pulverizer",
-            3997.0: "Ruinous Reagents",
-            4009.0: "Summon Skeleton",
-            4029.0: "Parasite Shield",
-            4055.0: "Electrobaton",
-            4073.0: "Exalted Reagents",
-            4085.0: "Dark Matter Prism",
-            4124.0: "Athame",
-            4141.0: "Machine Cannon",
-            4164.0: "Rotblaster",
-            4187.0: "Unholy Talisman",
-            4195.0: "Ballistic Shield",
-            4221.0: "Assault Pistol",
-            4280.0: "Mind Bolt",
-            4312.0: "Machine Pistol",
-            4328.0: "Translocator",
-            4361.0: "Smother",
-            4407.0: "Howling Reagent",
-            4410.0: "Tactical Exoskeleton",
-            4426.0: "Necrotizing Reagents",
-            4445.0: "Treasonous Whispers",
-            4464.0: "Combat Knife",
-            4480.0: "Heavy Duraplate Armor",
-            4482.0: "Summon Hound",
-            4501.0: "Aetheric Gate",
-            4515.0: "Combat Mesh",
-            4518.0: "War Pick",
-            4528.0: "Arc Talons",
-            4529.0: "Summon Stygian Worm",
-            4541.0: "Ripper Fist",
-            4550.0: "Grenade Launcher",
-            4569.0: "Ferro-plas Vest",
-            4604.0: "Fortress Shield",
-            4610.0: "Microshield",
-            4625.0: "Burden",
-            4645.0: "Zenith Blade",
-            4650.0: "Soul Thresher",
-            4659.0: "Chaotic Rift",
-            4680.0: "Chronofield",
-            4692.0: "Cryofoam"
-        }.items()))
+            "oItemAxe_doorBreak": "Siege Axe",
+        }
         
-        # Module mapping dictionary
+        # Create reverse equipment map for saving
+        self.equipment_display_to_key = {v: k for k, v in self.equipment_map.items()}
+        
+        # Module mapping dictionary remains the same
         self.module_map = {
             "oModule_preChargedWeapons": "Night Field: Begin fights with fully pre-charged weapons.",
             "oModule_huskRepairSpeed": "Support Prosthetics: Friendly Machine Slave units repair 50% faster.",
@@ -282,9 +85,14 @@ class VoidWarSaveEditor:
             "oModule_bonusCrewOnEnemySpellCast": "Vile Sepulchre: Once per fight, summon a random demon on the first enemy crew to use a psychic power."
         }
         
+        # Create inverse module map for saving
+        self.inv_module_map = {v: k for k, v in self.module_map.items()}
+        
         # Default save location
         self.default_dir = os.path.join(os.getenv('APPDATA'), 'Void_War')
         self.save_data = None
+        self.original_save_data = None
+        self.original_values = {}
         
         # Create main frame with scrollbar
         self.main_frame = tk.Frame(root)
@@ -391,6 +199,7 @@ class VoidWarSaveEditor:
         self.module_labels = []
         self.module_combos = []
         self.module_slot_present = [False, False, False]  # Track which slots exist
+        self.original_modules = {}  # Store original module data
         
         for i in range(3):
             slot_frame = tk.Frame(self.modules_frame)
@@ -401,7 +210,7 @@ class VoidWarSaveEditor:
             
             combo = ttk.Combobox(slot_frame, width=25, state="normal")
             module_names = sorted([name for name in self.module_map.values()])
-            combo['values'] = ["Empty Slot"] + module_names
+            combo['values'] = module_names
             combo.pack(side=tk.LEFT, padx=5, pady=2, fill=tk.X, expand=True)
             
             self.module_labels.append(label)
@@ -437,9 +246,13 @@ class VoidWarSaveEditor:
                 return
                 
             with open(file_path, 'r') as f:
-                self.save_data = f.read()
+                self.original_save_data = f.read()
+                self.save_data = self.original_save_data
                 self.current_file_path = file_path
                 self.backup_path = file_path + ".bak"
+            
+            # Store original values for comparison
+            self.original_values = {}
             
             # Find scrap value
             scrap_match = re.search(r'"currScrap":(\d+\.?\d*)', self.save_data)
@@ -449,6 +262,7 @@ class VoidWarSaveEditor:
                 scrap_value = scrap_match.group(1)
                 self.scrap_entry.delete(0, tk.END)
                 self.scrap_entry.insert(0, scrap_value)
+                self.original_values['scrap'] = scrap_value
             else:
                 raise ValueError("Scrap value not found in save file")
                 
@@ -456,47 +270,116 @@ class VoidWarSaveEditor:
                 missile_value = missile_match.group(1)
                 self.missile_entry.delete(0, tk.END)
                 self.missile_entry.insert(0, missile_value)
+                self.original_values['missile'] = missile_value
             else:
                 raise ValueError("Missile count not found in save file")
             
-            # Find cargo list
-            cargo_match = re.search(r'"cargoList":\[([^\]]+)\]', self.save_data)
+            # Find cargo list with formatting
+            cargo_match = re.search(r'"cargoList":\s*(\[.*?\])', self.save_data, re.DOTALL)
             if cargo_match:
-                cargo_str = cargo_match.group(1)
-                cargo_values = [float(x.strip()) for x in cargo_str.split(',')]
+                # Store original cargo list with formatting
+                self.original_values['cargo_list_str'] = cargo_match.group(1)
                 
-                if len(cargo_values) < 4:
-                    cargo_values += [-1.0] * (4 - len(cargo_values))
+                # Extract just the items
+                cargo_items = []
+                items_str = re.search(r'\[(.*)\]', self.original_values['cargo_list_str'], re.DOTALL)
+                if items_str:
+                    for item in items_str.group(1).split(','):
+                        item = item.strip()
+                        if item == '-1.0':
+                            cargo_items.append(-1.0)
+                        elif item.startswith('"') and item.endswith('"'):
+                            # String identifier
+                            cargo_items.append(item[1:-1])
+                        else:
+                            # Try to parse as float, but only allow -1.0
+                            try:
+                                num_val = float(item)
+                                if num_val == -1.0:
+                                    cargo_items.append(num_val)
+                                else:
+                                    # Unexpected number, treat as string
+                                    cargo_items.append(item)
+                            except ValueError:
+                                # Not a number, treat as string
+                                cargo_items.append(item)
                 
-                for i, value in enumerate(cargo_values[:4]):
+                # Pad to 4 slots
+                if len(cargo_items) < 4:
+                    cargo_items += [-1.0] * (4 - len(cargo_items))
+                
+                # Set values in UI
+                self.original_values['cargo'] = cargo_items[:4]
+                for i, value in enumerate(cargo_items[:4]):
                     if value in self.weapon_map:
                         display_value = self.weapon_map[value]
                     else:
+                        # Handle unknown items
                         display_value = str(value)
                     self.cargo_combos[i].set(display_value)
             else:
+                self.original_values['cargo_list_str'] = "[-1.0, -1.0, -1.0, -1.0]"
+                self.original_values['cargo'] = [-1.0] * 4
                 for i in range(4):
                     self.cargo_combos[i].set("Empty Slot")
                 self.status.config(text="Cargo list not found - initialized with empty slots")
             
-            # Find equipment list and quantities
-            equipment_list_match = re.search(r'"equipmentList":\[([^\]]+)\]', self.save_data)
-            equipment_qt_match = re.search(r'"equipmentQt":\[([^\]]+)\]', self.save_data)
+            # Find equipment list and quantities with formatting
+            equipment_list_match = re.search(r'"equipmentList":\s*(\[.*?\])', self.save_data, re.DOTALL)
+            equipment_qt_match = re.search(r'"equipmentQt":\s*(\[.*?\])', self.save_data, re.DOTALL)
             
             if equipment_list_match and equipment_qt_match:
-                equipment_str = equipment_list_match.group(1)
-                qt_str = equipment_qt_match.group(1)
+                # Store original lists with formatting
+                self.original_values['equipment_list_str'] = equipment_list_match.group(1)
+                self.original_values['equipment_qt_str'] = equipment_qt_match.group(1)
                 
-                equipment_values = [float(x.strip()) for x in equipment_str.split(',')]
-                qt_values = [float(x.strip()) for x in qt_str.split(',')]
+                # Extract equipment items
+                equipment_items = []
+                eq_items_str = re.search(r'\[(.*)\]', self.original_values['equipment_list_str'], re.DOTALL)
+                if eq_items_str:
+                    for item in eq_items_str.group(1).split(','):
+                        item = item.strip()
+                        if item == '-1.0':
+                            equipment_items.append(-1.0)
+                        elif item.startswith('"') and item.endswith('"'):
+                            # String identifier
+                            equipment_items.append(item[1:-1])
+                        else:
+                            # Try to parse as float, but only allow -1.0
+                            try:
+                                num_val = float(item)
+                                if num_val == -1.0:
+                                    equipment_items.append(num_val)
+                                else:
+                                    # Unexpected number, treat as string
+                                    equipment_items.append(item)
+                            except ValueError:
+                                # Not a number, treat as string
+                                equipment_items.append(item)
+                
+                # Parse quantities
+                qt_values = []
+                qt_items_str = re.search(r'\[(.*)\]', self.original_values['equipment_qt_str'], re.DOTALL)
+                if qt_items_str:
+                    for item in qt_items_str.group(1).split(','):
+                        item = item.strip()
+                        try:
+                            qt_values.append(float(item))
+                        except ValueError:
+                            qt_values.append(0.0)
                 
                 # Pad arrays if needed
-                if len(equipment_values) < 8:
-                    equipment_values += [-1.0] * (8 - len(equipment_values))
+                if len(equipment_items) < 8:
+                    equipment_items += [-1.0] * (8 - len(equipment_items))
                 if len(qt_values) < 8:
                     qt_values += [0.0] * (8 - len(qt_values))
                 
-                for i, (eq_val, qt_val) in enumerate(zip(equipment_values[:8], qt_values[:8])):
+                # Store original values
+                self.original_values['equipment'] = equipment_items[:8]
+                self.original_values['quantity'] = qt_values[:8]
+                
+                # Set values in UI
+                for i, (eq_val, qt_val) in enumerate(zip(equipment_items[:8], qt_values[:8])):
                     # Set equipment type
                     if eq_val in self.equipment_map:
                         display_value = self.equipment_map[eq_val]
@@ -508,6 +391,10 @@ class VoidWarSaveEditor:
                     self.quantity_entries[i].delete(0, tk.END)
                     self.quantity_entries[i].insert(0, str(qt_val))
             else:
+                self.original_values['equipment_list_str'] = "[-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0]"
+                self.original_values['equipment_qt_str'] = "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]"
+                self.original_values['equipment'] = [-1.0] * 8
+                self.original_values['quantity'] = [0.0] * 8
                 for i in range(8):
                     self.equipment_combos[i].set("Empty Slot")
                     self.quantity_entries[i].delete(0, tk.END)
@@ -516,15 +403,25 @@ class VoidWarSaveEditor:
             
             # Find ship modules
             self.module_slot_present = [False, False, False]  # Reset presence flags
+            self.original_modules = {}  # Clear previous module data
             
-            # Check for each module slot (0.0, 1.0, 2.0)
+            # Create regex pattern to find modules
+            module_pattern = re.compile(r'"moduleSlot":(\d)\.0.*?"obj":"([^"]+)"', re.DOTALL)
+            
+            # Find all modules in save data
+            modules = {}
+            for match in module_pattern.finditer(self.save_data):
+                slot_index = int(match.group(1))
+                module_obj = match.group(2)
+                modules[slot_index] = module_obj
+            
+            # Store original module values
+            self.original_values['modules'] = modules
+            
+            # Populate module slots
             for slot_index in range(3):
-                # Look for the module slot pattern
-                pattern = rf'"moduleSlot":{slot_index}\.0.*?"obj":"([^"]+)"'
-                match = re.search(pattern, self.save_data)
-                
-                if match:
-                    module_obj = match.group(1)
+                if slot_index in modules:
+                    module_obj = modules[slot_index]
                     self.module_slot_present[slot_index] = True
                     
                     # Convert obj to display name if available
@@ -562,31 +459,24 @@ class VoidWarSaveEditor:
             # Process cargo values
             cargo_values = []
             for i, combo in enumerate(self.cargo_combos):
-                value = combo.get().strip()
+                display_name = combo.get().strip()
                 
-                # Check if it's a weapon name
-                if value in self.weapon_map.values():
-                    for num, name in self.weapon_map.items():
-                        if name == value:
-                            cargo_values.append(num)
-                            break
-                # Check if it's "Empty Slot"
-                elif value == "Empty Slot":
+                if display_name == "Empty Slot":
                     cargo_values.append(-1.0)
-                # Try to parse as float
+                elif display_name in self.weapon_display_to_key:
+                    # Get the string key for this display name
+                    key = self.weapon_display_to_key[display_name]
+                    cargo_values.append(key)
                 else:
-                    try:
-                        num_value = float(value)
-                        cargo_values.append(num_value)
-                    except ValueError:
-                        raise ValueError(f"Invalid value in cargo slot {i+1}: '{value}'. Must be a weapon name or number")
+                    # Fallback to using display name as key
+                    cargo_values.append(display_name)
             
             # Process equipment values and quantities
             equipment_values = []
             quantity_values = []
             
             for i, (combo, qty_entry) in enumerate(zip(self.equipment_combos, self.quantity_entries)):
-                eq_value = combo.get().strip()
+                display_name = combo.get().strip()
                 qty_value = qty_entry.get().strip()
                 
                 # Validate quantity
@@ -597,105 +487,177 @@ class VoidWarSaveEditor:
                 qty_float = float(qty_value)
                 
                 # Process equipment type
-                if eq_value == "Empty Slot":
+                if display_name == "Empty Slot":
                     equipment_values.append(-1.0)
-                    # Force quantity to 0 for empty slots
                     quantity_values.append(0.0)
-                elif eq_value in self.equipment_map.values():
-                    found = False
-                    for num, name in self.equipment_map.items():
-                        if name == eq_value:
-                            equipment_values.append(num)
-                            quantity_values.append(qty_float)
-                            found = True
-                            break
-                    if not found:
-                        # Shouldn't happen, but handle just in case
-                        equipment_values.append(-1.0)
-                        quantity_values.append(0.0)
+                elif display_name in self.equipment_display_to_key:
+                    # Get the string key for this display name
+                    key = self.equipment_display_to_key[display_name]
+                    equipment_values.append(key)
+                    quantity_values.append(qty_float)
                 else:
-                    try:
-                        eq_float = float(eq_value)
-                        equipment_values.append(eq_float)
-                        quantity_values.append(qty_float)
-                    except ValueError:
-                        raise ValueError(f"Invalid value in equipment slot {i+1}: '{eq_value}'. Must be an equipment name or number")
+                    # Fallback to using display name as key
+                    equipment_values.append(display_name)
+                    quantity_values.append(qty_float)
             
-                # Process module changes
-                updated_data = self.save_data
+            # Start with original data
+            updated_data = self.original_save_data
+            changes_made = False
+            
+            # Update scrap if changed
+            if new_scrap != self.original_values['scrap']:
+                updated_data = re.sub(
+                    r'("currScrap":)(\d+\.?\d*)',
+                    f'\\g<1>{new_scrap}',
+                    updated_data
+                )
+                changes_made = True
+            
+            # Update missile count if changed
+            if new_missile != self.original_values['missile']:
+                updated_data = re.sub(
+                    r'("playerMissileCt":)(\d+\.?\d*)',
+                    f'\\g<1>{new_missile}',
+                    updated_data
+                )
+                changes_made = True
+            
+            # Update cargo list if changed - preserve original formatting
+            if 'cargo' in self.original_values and cargo_values != self.original_values['cargo']:
+                # Create new cargo list with original formatting
+                new_cargo_list = self.original_values['cargo_list_str']
+                
+                # Replace each item while preserving formatting
+                for i in range(4):
+                    orig_val = self.original_values['cargo'][i]
+                    new_val = cargo_values[i]
+                    
+                    # Format new value properly
+                    if new_val == -1.0:
+                        new_val_str = "-1.0"
+                    elif isinstance(new_val, str):
+                        new_val_str = f'"{new_val}"'
+                    else:
+                        new_val_str = str(new_val)
+                    
+                    # Format original value for regex
+                    if orig_val == -1.0:
+                        orig_val_str = r'-1\.0'
+                    elif isinstance(orig_val, str):
+                        orig_val_str = re.escape(f'"{orig_val}"')
+                    else:
+                        orig_val_str = re.escape(str(orig_val))
+                    
+                    # Replace only this specific occurrence
+                    pattern = re.compile(orig_val_str, re.DOTALL)
+                    new_cargo_list, count = pattern.subn(new_val_str, new_cargo_list, 1)
+                    
+                    if count == 0:
+                        # Fallback if we couldn't find exact match
+                        # This is safer than replacing the whole array
+                        self.status.config(text="Warning: Could not find exact cargo item to replace")
+                
+                # Replace the entire cargo list with updated version
+                updated_data = updated_data.replace(self.original_values['cargo_list_str'], new_cargo_list)
+                changes_made = True
+            
+            # Update equipment lists if changed - preserve original formatting
+            if ('equipment' in self.original_values and 'quantity' in self.original_values and 
+                (equipment_values != self.original_values['equipment'] or 
+                 quantity_values != self.original_values['quantity'])):
+                
+                # Update equipment list
+                new_equipment_list = self.original_values['equipment_list_str']
+                for i in range(8):
+                    orig_val = self.original_values['equipment'][i]
+                    new_val = equipment_values[i]
+                    
+                    # Format new value properly
+                    if new_val == -1.0:
+                        new_val_str = "-1.0"
+                    elif isinstance(new_val, str):
+                        new_val_str = f'"{new_val}"'
+                    else:
+                        new_val_str = str(new_val)
+                    
+                    # Format original value for regex
+                    if orig_val == -1.0:
+                        orig_val_str = r'-1\.0'
+                    elif isinstance(orig_val, str):
+                        orig_val_str = re.escape(f'"{orig_val}"')
+                    else:
+                        orig_val_str = re.escape(str(orig_val))
+                    
+                    # Replace only this specific occurrence
+                    pattern = re.compile(orig_val_str, re.DOTALL)
+                    new_equipment_list, count = pattern.subn(new_val_str, new_equipment_list, 1)
+                    
+                    if count == 0:
+                        self.status.config(text="Warning: Could not find exact equipment item to replace")
+                
+                # Update quantity list
+                new_quantity_list = self.original_values['equipment_qt_str']
+                for i in range(8):
+                    orig_val = self.original_values['quantity'][i]
+                    new_val = quantity_values[i]
+                    
+                    # Format new value properly
+                    new_val_str = str(new_val)
+                    
+                    # Format original value for regex
+                    orig_val_str = re.escape(str(orig_val))
+                    
+                    # Replace only this specific occurrence
+                    pattern = re.compile(orig_val_str, re.DOTALL)
+                    new_quantity_list, count = pattern.subn(new_val_str, new_quantity_list, 1)
+                    
+                    if count == 0:
+                        self.status.config(text="Warning: Could not find exact quantity to replace")
+                
+                # Replace both lists in the save data
+                updated_data = updated_data.replace(self.original_values['equipment_list_str'], new_equipment_list)
+                updated_data = updated_data.replace(self.original_values['equipment_qt_str'], new_quantity_list)
+                changes_made = True
+            
+            # Update modules if changed
+            if 'modules' in self.original_values:
                 for slot_index in range(3):
-                    if self.module_slot_present[slot_index]:
+                    if slot_index in self.original_values['modules']:
                         display_name = self.module_combos[slot_index].get().strip()
-                        
-                        # Skip if nothing selected
                         if not display_name:
                             continue
                         
-                        # Convert display name back to object name if available
-                        if display_name in self.module_map.values():
-                            # Find the object name for this display name
-                            obj_name = None
-                            for obj, name in self.module_map.items():
-                                if name == display_name:
-                                    obj_name = obj
-                                    break
+                        # Convert display name back to object name
+                        if display_name in self.inv_module_map:
+                            obj_name = self.inv_module_map[display_name]
                         else:
                             obj_name = display_name
                         
-                        if obj_name:
-                            # Create pattern to find the existing module entry
-                            pattern = rf'("moduleSlot":{slot_index}\.0.*?"obj":")[^"]+(")'
-                            
-                            # Replace with new object name
-                            updated_data = re.sub(
-                                pattern,
-                                rf'\g<1>{obj_name}\g<2>',
-                                updated_data,
-                                flags=re.DOTALL  # Critical fix
-                            )
+                        # Skip if not changed
+                        if obj_name == self.original_values['modules'][slot_index]:
+                            continue
+                        
+                        # Create precise pattern for replacement
+                        original_obj = re.escape(self.original_values['modules'][slot_index])
+                        pattern = re.compile(
+                            rf'(?s)("moduleSlot":{slot_index}\.0.*?"obj":\s*"){original_obj}(")',
+                            re.DOTALL
+                        )
+                        
+                        # Replace with new object name
+                        replacement = f'\\g<1>{obj_name}\\g<2>'
+                        updated_data = pattern.sub(replacement, updated_data, 1)
+                        changes_made = True
+            
+            # Only proceed if changes were made
+            if not changes_made:
+                self.status.config(text="No changes detected - file not modified")
+                return
             
             # Create backup
             if os.path.exists(self.backup_path):
                 os.remove(self.backup_path)
             os.rename(self.current_file_path, self.backup_path)
-            
-            # Update scrap value
-            updated_data = re.sub(
-                r'("currScrap":)(\d+\.?\d*)',
-                f'\\g<1>{new_scrap}',
-                updated_data
-            )
-            
-            # Update missile count
-            updated_data = re.sub(
-                r'("playerMissileCt":)(\d+\.?\d*)',
-                f'\\g<1>{new_missile}',
-                updated_data
-            )
-            
-            # Update cargo list
-            cargo_str = ",".join([str(v) for v in cargo_values])
-            updated_data = re.sub(
-                r'("cargoList":)(\[[^\]]+\])',
-                f'\\g<1>[{cargo_str}]',
-                updated_data
-            )
-            
-            # Update equipment list
-            equipment_str = ",".join([str(v) for v in equipment_values])
-            updated_data = re.sub(
-                r'("equipmentList":)(\[[^\]]+\])',
-                f'\\g<1>[{equipment_str}]',
-                updated_data
-            )
-            
-            # Update equipment quantities
-            quantity_str = ",".join([str(v) for v in quantity_values])
-            updated_data = re.sub(
-                r'("equipmentQt":)(\[[^\]]+\])',
-                f'\\g<1>[{quantity_str}]',
-                updated_data
-            )
             
             # Save changes
             with open(self.current_file_path, 'w') as f:
