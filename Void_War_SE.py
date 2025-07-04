@@ -7,7 +7,7 @@ class VoidWarSaveEditor:
     def __init__(self, root):
         self.root = root
         self.root.title("Void War Save Editor")
-        self.root.minsize(600, 800)
+        self.root.minsize(800, 800)  # Increased width for crew editor
         
         # Weapon mapping dictionary with string keys
         self.weapon_map = {
@@ -93,14 +93,49 @@ class VoidWarSaveEditor:
         self.save_data = None
         self.original_save_data = None
         self.original_values = {}
+        self.crew_data = []  # To store parsed crew data
+        self.current_crew_index = None  # Currently selected crew
         
-        # Create main frame with scrollbar
-        self.main_frame = tk.Frame(root)
-        self.main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        # Create notebook for tabs
+        self.notebook = ttk.Notebook(root)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        # Create ship tab
+        self.ship_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.ship_tab, text="Ship")
+        
+        # Create crew tab
+        self.crew_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.crew_tab, text="Crew")
+        
+        # Build ship tab
+        self.create_ship_tab()
+        
+        # Build crew tab
+        self.create_crew_tab()
+        
+        # Button Section (outside tabs)
+        self.btn_frame = tk.Frame(root)
+        self.btn_frame.pack(fill=tk.X, pady=10)
+        
+        self.load_btn = tk.Button(self.btn_frame, text="Load Savegame", command=self.load_save)
+        self.load_btn.pack(side=tk.LEFT, padx=(0, 10), fill=tk.X, expand=True)
+        
+        self.save_btn = tk.Button(self.btn_frame, text="Save Changes", command=self.save_changes, state="disabled")
+        self.save_btn.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # Status Bar
+        self.status = tk.Label(root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W)
+        self.status.pack(side=tk.BOTTOM, fill=tk.X)
+    
+    def create_ship_tab(self):
+        # Create main frame with scrollbar for ship tab
+        self.ship_frame = tk.Frame(self.ship_tab)
+        self.ship_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Create a canvas for scrolling
-        self.canvas = tk.Canvas(self.main_frame)
-        self.scrollbar = ttk.Scrollbar(self.main_frame, orient="vertical", command=self.canvas.yview)
+        self.canvas = tk.Canvas(self.ship_frame)
+        self.scrollbar = ttk.Scrollbar(self.ship_frame, orient="vertical", command=self.canvas.yview)
         self.scrollable_frame = tk.Frame(self.canvas)
         
         self.scrollable_frame.bind(
@@ -215,21 +250,206 @@ class VoidWarSaveEditor:
             
             self.module_labels.append(label)
             self.module_combos.append(combo)
+    
+    def create_crew_tab(self):
+        # Main frame for crew tab
+        self.crew_frame = tk.Frame(self.crew_tab)
+        self.crew_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
-        # Button Section
-        self.btn_frame = tk.Frame(self.scrollable_frame)
-        self.btn_frame.pack(fill=tk.X, pady=10)
+        # Crew list frame
+        crew_list_frame = tk.LabelFrame(self.crew_frame, text="Crew Members")
+        crew_list_frame.pack(fill=tk.X, padx=5, pady=5)
         
-        self.load_btn = tk.Button(self.btn_frame, text="Load Savegame", command=self.load_save)
-        self.load_btn.pack(side=tk.LEFT, padx=(0, 10), fill=tk.X, expand=True)
+        # Treeview for crew listing
+        self.crew_tree = ttk.Treeview(crew_list_frame, columns=("Name", "Base Name", "HP", "Type"), show="headings")
+        self.crew_tree.heading("Name", text="Crew Name")
+        self.crew_tree.heading("Base Name", text="Base Name")
+        self.crew_tree.heading("HP", text="HP")
+        self.crew_tree.heading("Type", text="Type")
+        self.crew_tree.column("Name", width=120)
+        self.crew_tree.column("Base Name", width=120)
+        self.crew_tree.column("HP", width=80)
+        self.crew_tree.column("Type", width=120)
         
-        self.save_btn = tk.Button(self.btn_frame, text="Save Changes", command=self.save_changes, state="disabled")
-        self.save_btn.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        vsb = ttk.Scrollbar(crew_list_frame, orient="vertical", command=self.crew_tree.yview)
+        self.crew_tree.configure(yscrollcommand=vsb.set)
         
-        # Status Bar
-        self.status = tk.Label(root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.W)
-        self.status.pack(side=tk.BOTTOM, fill=tk.X)
+        self.crew_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        vsb.pack(side=tk.RIGHT, fill=tk.Y)
         
+        # Bind selection event
+        self.crew_tree.bind("<<TreeviewSelect>>", self.on_crew_select)
+        
+        # Crew details frame
+        details_frame = tk.LabelFrame(self.crew_frame, text="Crew Details")
+        details_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Crew name
+        name_frame = tk.Frame(details_frame)
+        name_frame.pack(fill=tk.X, padx=5, pady=2)
+        tk.Label(name_frame, text="Crew Name:").pack(side=tk.LEFT, padx=(5, 5))
+        self.crew_name_var = tk.StringVar()
+        self.crew_name_entry = tk.Entry(name_frame, textvariable=self.crew_name_var)
+        self.crew_name_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # Base name
+        base_name_frame = tk.Frame(details_frame)
+        base_name_frame.pack(fill=tk.X, padx=5, pady=2)
+        tk.Label(base_name_frame, text="Base Name:").pack(side=tk.LEFT, padx=(5, 5))
+        self.base_name_var = tk.StringVar()
+        self.base_name_entry = tk.Entry(base_name_frame, textvariable=self.base_name_var)
+        self.base_name_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # Crew type
+        type_frame = tk.Frame(details_frame)
+        type_frame.pack(fill=tk.X, padx=5, pady=2)
+        tk.Label(type_frame, text="Type:").pack(side=tk.LEFT, padx=(5, 5))
+        self.crew_type_var = tk.StringVar()
+        self.crew_type_entry = tk.Entry(type_frame, textvariable=self.crew_type_var)
+        self.crew_type_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # Max HP
+        hp_frame = tk.Frame(details_frame)
+        hp_frame.pack(fill=tk.X, padx=5, pady=2)
+        tk.Label(hp_frame, text="Max HP:").pack(side=tk.LEFT, padx=(5, 5))
+        self.max_hp_var = tk.StringVar()
+        self.max_hp_entry = tk.Entry(hp_frame, textvariable=self.max_hp_var)
+        self.max_hp_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+        
+        # Keywords frame
+        keywords_frame = tk.LabelFrame(details_frame, text="Keywords")
+        keywords_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        
+        # Create a frame with scrollbar for keywords
+        keyword_canvas = tk.Canvas(keywords_frame)
+        keyword_scrollbar = ttk.Scrollbar(keywords_frame, orient="vertical", command=keyword_canvas.yview)
+        keyword_scrollable_frame = tk.Frame(keyword_canvas)
+        
+        keyword_scrollable_frame.bind(
+            "<Configure>",
+            lambda e: keyword_canvas.configure(scrollregion=keyword_canvas.bbox("all")))
+        
+        keyword_canvas.create_window((0, 0), window=keyword_scrollable_frame, anchor="nw")
+        keyword_canvas.configure(yscrollcommand=keyword_scrollbar.set)
+        
+        keyword_canvas.pack(side="left", fill="both", expand=True)
+        keyword_scrollbar.pack(side="right", fill="y")
+        
+        # Create keyword entries
+        self.keyword_vars = []
+        for i in range(10):
+            frame = tk.Frame(keyword_scrollable_frame)
+            frame.pack(fill=tk.X, padx=5, pady=2)
+            
+            label = tk.Label(frame, text=f"Keyword {i+1}:", width=10, anchor="w")
+            label.pack(side=tk.LEFT, padx=(5, 5))
+            
+            var = tk.StringVar()
+            entry = tk.Entry(frame, textvariable=var)
+            entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+            
+            self.keyword_vars.append(var)
+    
+    def on_crew_select(self, event):
+        selected = self.crew_tree.selection()
+        if not selected:
+            return
+            
+        self.current_crew_index = int(selected[0])  # Store the index of selected crew
+        crew = self.crew_data[self.current_crew_index]
+        
+        # Update fields with crew data
+        self.crew_name_var.set(crew.get('crewName', ''))
+        self.base_name_var.set(crew.get('baseName', ''))
+        self.crew_type_var.set(crew.get('obj', ''))
+        self.max_hp_var.set(str(crew.get('maxHP', 0)))
+        
+        # Update keywords
+        keywords = crew.get('setKeyword', ['<undefined>'] * 10)
+        for i in range(10):
+            self.keyword_vars[i].set(keywords[i] if i < len(keywords) else '<undefined>')
+    
+    def parse_crew_data(self, save_data):
+        """Parse crew data from save file"""
+        self.crew_data = []
+        
+        # First, find and remove shipSelect_customCrewNames section
+        custom_crew_pattern = r'"shipSelect_customCrewNames":\s*\[.*?\]'
+        save_data = re.sub(custom_crew_pattern, '', save_data, flags=re.DOTALL)
+        
+        # Find all crew objects
+        pattern = r'\{([^{}]*?)(?:"crewName":\s*"([^"]*)",?)([^{}]*?)\}'
+        matches = re.finditer(pattern, save_data, re.DOTALL)
+        
+        for match in matches:
+            crew_block = match.group(0)
+            crew_info = {}
+            
+            # Extract crew name
+            crew_name_match = re.search(r'"crewName":\s*"([^"]+)"', crew_block)
+            if crew_name_match:
+                crew_info['crewName'] = crew_name_match.group(1)
+            
+            # Extract base name
+            base_name_match = re.search(r'"baseName":\s*"([^"]+)"', crew_block)
+            if base_name_match:
+                crew_info['baseName'] = base_name_match.group(1)
+            
+            # Extract crew type
+            obj_match = re.search(r'"obj":\s*"([^"]+)"', crew_block)
+            if obj_match:
+                crew_info['obj'] = obj_match.group(1)
+            
+            # Extract HP values
+            max_hp_match = re.search(r'"maxHP":\s*(\d+\.?\d*)', crew_block)
+            if max_hp_match:
+                crew_info['maxHP'] = float(max_hp_match.group(1))
+            
+            curr_hp_match = re.search(r'"currHP":\s*(\d+\.?\d*)', crew_block)
+            if curr_hp_match:
+                crew_info['currHP'] = float(curr_hp_match.group(1))
+            
+            # Extract keywords
+            keyword_match = re.search(r'"setKeyword":\s*\[(.*?)\]', crew_block, re.DOTALL)
+            if keyword_match:
+                keywords = []
+                keyword_str = keyword_match.group(1)
+                # Split keywords while handling quotes and commas
+                for kw in re.split(r',\s*(?=(?:[^"]*"[^"]*")*[^"]*$)', keyword_str):
+                    kw = kw.strip()
+                    if kw.startswith('"') and kw.endswith('"'):
+                        keywords.append(kw[1:-1])
+                    elif kw == '<undefined>':
+                        keywords.append(kw)
+                    elif kw:  # Handle unquoted strings
+                        keywords.append(kw)
+                # Pad to 10 keywords
+                if len(keywords) < 10:
+                    keywords += ['<undefined>'] * (10 - len(keywords))
+                crew_info['setKeyword'] = keywords
+            
+            # Only include if we have essential fields
+            if 'maxHP' in crew_info and 'obj' in crew_info:
+                # Store original block for later saving
+                crew_info['original_block'] = crew_block
+                self.crew_data.append(crew_info)
+    
+    def update_crew_tree(self):
+        """Populate the crew tree with parsed data"""
+        # Clear existing items
+        for item in self.crew_tree.get_children():
+            self.crew_tree.delete(item)
+        
+        # Add crew members to tree
+        for i, crew in enumerate(self.crew_data):
+            hp_str = f"{crew.get('currHP', 0)}/{crew.get('maxHP', 0)}"
+            self.crew_tree.insert("", "end", iid=str(i), values=(
+                crew.get('crewName', 'Unknown'),
+                crew.get('baseName', 'Unknown'),
+                hp_str,
+                crew.get('obj', 'Unknown')
+            ))
+    
     def load_save(self):
         try:
             # Set initial directory if it exists
@@ -436,6 +656,10 @@ class VoidWarSaveEditor:
                     # Slot not found, disable and clear
                     self.module_combos[slot_index].set("")
                     self.module_combos[slot_index].config(state="disabled")
+            
+            # Parse and display crew data
+            self.parse_crew_data(self.save_data)
+            self.update_crew_tree()
             
             self.save_btn.config(state="normal")
             self.status.config(text=f"Loaded: {os.path.basename(file_path)}")
@@ -649,6 +873,68 @@ class VoidWarSaveEditor:
                         updated_data = pattern.sub(replacement, updated_data, 1)
                         changes_made = True
             
+            # Update crew data if changed
+            if self.crew_data:
+                for crew in self.crew_data:
+                    # Create a new crew block with updated values
+                    new_block = crew['original_block']
+                    
+                    # Update crew name
+                    if 'crewName' in crew and crew['crewName']:
+                        new_block = re.sub(
+                            r'"crewName":\s*"[^"]*"',
+                            f'"crewName": "{crew["crewName"]}"',
+                            new_block
+                        )
+                    
+                    # Update base name
+                    if 'baseName' in crew and crew['baseName']:
+                        new_block = re.sub(
+                            r'"baseName":\s*"[^"]*"',
+                            f'"baseName": "{crew["baseName"]}"',
+                            new_block
+                        )
+                    
+                    # Update crew type
+                    if 'obj' in crew and crew['obj']:
+                        new_block = re.sub(
+                            r'"obj":\s*"[^"]*"',
+                            f'"obj": "{crew["obj"]}"',
+                            new_block
+                        )
+                    
+                    # Update max HP
+                    if 'maxHP' in crew:
+                        new_block = re.sub(
+                            r'"maxHP":\s*[\d\.]+',
+                            f'"maxHP": {crew["maxHP"]}',
+                            new_block
+                        )
+                    
+                    # Update keywords
+                    if 'setKeyword' in crew:
+                        # Build new keyword array
+                        kw_list = []
+                        for kw in crew['setKeyword']:
+                            if kw == '<undefined>':
+                                kw_list.append(kw)
+                            else:
+                                kw_list.append(f'"{kw}"')
+                        new_keywords = '[' + ','.join(kw_list) + ']'
+                        
+                        # Replace in block
+                        new_block = re.sub(
+                            r'"setKeyword":\s*\[.*?\]',
+                            f'"setKeyword": {new_keywords}',
+                            new_block,
+                            flags=re.DOTALL
+                        )
+                    
+                    # Replace original block with updated block
+                    if new_block != crew['original_block']:
+                        updated_data = updated_data.replace(crew['original_block'], new_block)
+                        changes_made = True
+            
             # Only proceed if changes were made
             if not changes_made:
                 self.status.config(text="No changes detected - file not modified")
@@ -679,6 +965,10 @@ class VoidWarSaveEditor:
                 if self.module_slot_present[i]:
                     module_summary.append(f"Slot {i+1}: {self.module_combos[i].get()}")
             
+            # Crew summary
+            crew_summary = "\n".join([f"{crew.get('crewName', 'Unknown')} ({crew.get('baseName', 'Unknown')})" 
+                                    for crew in self.crew_data])
+            
             messagebox.showinfo("Success", 
                 f"Save file updated successfully!\n\n"
                 f"Scrap: {new_scrap}\n"
@@ -686,6 +976,7 @@ class VoidWarSaveEditor:
                 f"Cargo Summary:\n{cargo_summary}\n\n"
                 f"Equipment Summary:\n{equipment_summary}\n\n"
                 f"Module Summary:\n" + "\n".join(module_summary) + "\n\n"
+                f"Crew Summary:\n{crew_summary}\n\n"
                 f"Backup created: {os.path.basename(self.backup_path)}")
             
         except Exception as e:
