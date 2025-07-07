@@ -61,7 +61,31 @@ class VoidWarSaveEditor:
             "oWPMissile1x3": "Claymore Missile",
             "oWPMissileFire": "Hellfire Missile",
             "oWPMissileIon2": "Heavy Disruptor Missile",
-            "oWPMissileWarp": "Rift Bomb"
+            "oWPMissileWarp": "Rift Bomb",
+            "oWPCannon1Teleport": "Displacement Field Emitter",
+            "oWPBeam2": "Energy Beam II",
+            "oWPBeamBreach": "Flayer Beam",
+            "oWPCannon8": "Storm Cannon Array",
+            "oWPBeamFire1": "Heat Beam I",
+            "oWPBeamFire2": "Heat Beam II",
+            "oWPBeamInferno": "Inferno Beam",
+            "oWPBeamSlow": "Gravitic Ray",
+            "oWPBeamStun": "Neuralizer",
+            "oWPHyperBeam": "Macro Devastator",
+            "oWPAreaFire4": "Inferno Fougasse",
+            "oWPAreaMag3": "Magnetic Pulse II",
+            "oWPAreaMag5": "Magnetic Pulse III",
+            "oWPDisruptorHeavy": "Heavy Disruptor",
+            "oWPDisruptorMacro": "Macro Disruptor",
+            "oWPDisruptorRapid": "Auto-Disruptor",
+            "oWPMissile1x1": "Shiv Missile",
+            "oWPMissile1x1Breach": "Flayer Missile",
+            "oWPMissile1x2PsnCloud": "Blight Bomb",
+            "oWPMissileFire2": "Incendiary Missile",
+            "oWPMissileIon1": "Disruptor Missile",
+            "oWPMissileSprint": "Fury Missile",
+            "oWPMissileStun": "Terror Missile",
+            "oWPMissileTeleport": "Displacement Bomb"
         }
         
         # Create reverse weapon map for saving
@@ -184,7 +208,27 @@ class VoidWarSaveEditor:
             "oItemMindControl": "Treasonous Whispers",
             "oItemSystemCannotRepair": "Techno Virus",
             "oConsumableRepairHull": "Hull Integrity Patch",
-            "oConsumableMedKitRemote": "Med-Drone"
+            "oConsumableMedKitRemote": "Med-Drone",
+            "oConsumableAntidote": "Antidote",
+            "oConsumableExtinguisher": "Cryofoam",
+            "oConsumableTeleportRoomTarget": "Dark Matter Prism",
+            "oConsumableDamageSystem": "Fusion Charge",
+            "oConsumableDeployableShield": "Microshield",
+            "oConsumableDamageControlRemote": "Repair Drone",
+            "oConsumableSummonBloat": "Bloated Reagents",
+            "oConsumableSummonEidolon": "Doom Reagents",
+            "oConsumableSummonRedeemer": "Exalted Reagents",
+            "oConsumableSummonDemonImp3x": "Fleshy Reagents",
+            "oConsumableSummonMaw": "Hungering Reagents",
+            "oConsumableSummonBlob": "Necrotizing Reagents",
+            "oConsumableSummonHellbringer": "Ruinous Reagents",
+            "oConsumableSummonHydra": "Stygian Reagents",
+            "oItemFist_doorBreak": "Ripper Fist",
+            "oItemSummonDemonWar": "Doom Ritual",
+            "oItemSummonDemonCambion": "Summon Fiend",
+            "oItemSummonDemonMaw": "Summon Hungerer",
+            "oItemSummonDemonHydraHead": "Summon Stygian Worm",
+            "oItemTeleportToWretch": "Thrallwalk"
         }
         
         # Create reverse equipment map for saving
@@ -245,7 +289,8 @@ class VoidWarSaveEditor:
             "oModule_spellsDoDamage": "Hate Matrix: All non-summoning psychic projetiles deal 1 extra damage to the targeted ship in addition to their normal effect.",
             "oModule_firstWeaponAlwaysHits": "Ghost-Linked Reticle: The first time your ship fires a weapon during a fight, it always hits.",
             "oModule_DPS_HP_demon": "Obscene Organ: +1 DPS and +10 HP to all Demonic units",
-            "oModule_bonusCrewOnEnemySpellCast": "Vile Sepulchre: Once per fight, summon a random demon on the first enemy crew to use a psychic power."
+            "oModule_bonusCrewOnEnemySpellCast": "Vile Sepulchre: Once per fight, summon a random demon on the first enemy crew to use a psychic power.",
+            "oModule_firstWeaponDoubleDamage": "Reaper Shells: The first time your ship fires a damaging weapon during a fight, that weapon's base damage is doubled."
         }
         
         # Create inverse module map for saving
