@@ -26,7 +26,6 @@ Fear,ItemFearNearbyAll,15,Fear all nearby crew for 10 seconds.,30,0,0,10
 Fireball,ItemFireball,20,Cast a fireball at target room.,30,0,450,0
 Force Shield,ItemForceShield,30,Shield the immediate area against a hostile projectile.,30,0,0,0
 Greater Animate Dead,ItemSummonZombie5x,30,Summon 5Ghouls in target room.,30,16,300,0
-Greater Animate Dead,ItemSummonZombieFast5x,80,Summon 5 sprinters,90,12,300,0
 Greater Force Shield,ItemForceShieldLg,4,Shield against a hostile projectile,20,0,0,0
 Mind Bolt,ItemMindBolt,20,Cast a projectile that deals 15 HP damage to hostile crew in target room.,30,0,900,0
 Noxious Blast,ItemPoisonBlastTarget,20,Cast a poisonous projectile at target room.,30,0,450,0
