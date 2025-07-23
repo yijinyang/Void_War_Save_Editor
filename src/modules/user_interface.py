@@ -1,7 +1,7 @@
 import logging
 import tkinter as tk
-from tkinter import messagebox, ttk
 from functools import partial
+from tkinter import messagebox, ttk
 
 from .game_data import GameData
 from .save_manager import SaveManager
@@ -126,7 +126,7 @@ class MainApp(tk.Tk):
         self.equipment_descriptions = []
         self.equipment_select_btns = []
         item_names = ["Empty Slot"] + list(self.game_data.item_id_name_map.values())
-        categories = ["armor", "consumable", "psychic", "tool", "weapon"]
+        equipment_categories = GameData.ITEM_MAP["equipment"]
         for i in range(8):
             row = ttk.Frame(equipment_frame)
             row.pack(fill=tk.X, padx=5, pady=2)
@@ -140,7 +140,7 @@ class MainApp(tk.Tk):
             )
             self.equipment_combos.append(combo)
             btns = []
-            for cat in categories:
+            for cat in equipment_categories:
                 btn = ttk.Button(
                     row,
                     text=cat.capitalize(),
@@ -275,7 +275,7 @@ class MainApp(tk.Tk):
                 str(item_id), "Item has no description"
             )
             self.equipment_descriptions[i].config(text=description)
-        # (No qty_entry population, hidden from UI)
+        # (No qty_entry population, hidden from UI -> Auto set max based on item selected)
 
         # Cargo
         cargo_list = self.save_manager.get_cargo_list()

@@ -15,13 +15,13 @@ GAME_DATA_FILENAME_MAP = {
     "ship_weapon": "ShipWeapons.csv",
 }
 
-ITEM_MAP = {
-    "equipment": ["armor", "consumable", "psychic", "tool", "weapon"],
-    "cargo": ["ship_module", "ship_weapon"],
-}
-
 
 class GameData:
+
+    ITEM_MAP = {
+        "equipment": ["armor", "consumable", "psychic", "tool", "weapon"],
+        "cargo": ["ship_module", "ship_weapon"],
+    }
 
     def __init__(self):
         """

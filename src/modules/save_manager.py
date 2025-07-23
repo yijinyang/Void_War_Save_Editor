@@ -5,6 +5,7 @@ import logging
 from pathlib import Path
 from tkinter import filedialog
 from typing import List
+
 from .utils import enforce_positive_float
 
 logger = logging.getLogger(__name__)

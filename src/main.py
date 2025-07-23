@@ -1,12 +1,10 @@
 # import save manager module
+from modules.game_data import GameData
 from modules.save_manager import SaveManager
+from modules.user_interface import MainApp
 from modules.utils import get_logger
 
 logger = get_logger()
-
-
-from modules.game_data import GameData
-from modules.user_interface import MainApp
 
 
 def main():
