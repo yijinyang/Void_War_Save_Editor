@@ -53,6 +53,14 @@ class GameData:
                     self.item_id_name_map[item_id] = item_name
         self.item_name_id_map = {v: k for k, v in self.item_id_name_map.items()}
 
+        # Create item_id_description_map
+        self.item_id_description_map = {}
+        for category in GAME_DATA_FILENAME_MAP.keys():
+            category_data: Dict[str, dict] = getattr(self, category, {})
+            for item_id, item_data in category_data.items():
+                description = item_data.get("Description", "Item has no description")
+                self.item_id_description_map[item_id] = description
+
     def format_id(self, id_value: str) -> str:
         """
         Formats the ID value by prefixing a "o" character (2025.07.15).

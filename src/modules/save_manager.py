@@ -4,8 +4,7 @@ import json
 import logging
 from pathlib import Path
 from tkinter import filedialog
-from typing import Any
-
+from typing import List
 from .utils import enforce_positive_float
 
 logger = logging.getLogger(__name__)
@@ -14,6 +13,9 @@ logger = logging.getLogger(__name__)
 class SaveManager:
 
     EMPTY_SLOT = -1.0
+
+    PLAYER_DATA_TAG = "playerData"
+    GAME_OBJECT_DATA_TAG = "gameObjectData"
 
     SCRAP_TAG = "currScrap"
     MISSILE_COUNT_TAG = "playerMissileCt"
@@ -24,6 +26,9 @@ class SaveManager:
 
     CARGO_LIST_TAG = "cargoList"
     CARGO_VIEWED_TAG = "cargoHasBeenViewed"
+
+    MODULE_SLOT_TAG = "moduleSlot"
+    MODULE_OBJECT_ID_TAG = "obj"
 
     def __init__(self):
         self.default_dir = Path.home() / "AppData" / "Roaming" / "Void_War"
@@ -50,19 +55,30 @@ class SaveManager:
                 logger.error(f"Failed to convert save data: {str(e)}")
                 raise
 
-        if "playerData" not in self.save_data:
+        if self.PLAYER_DATA_TAG not in self.save_data:
             raise ValueError(
-                "Invalid save data format: Save data does not contain 'playerData' key."
+                f"Invalid save data format: Save data does not contain '{self.PLAYER_DATA_TAG}' key."
             )
 
         # Update this if game data structure changes
-        self.player_data: dict = self.save_data["playerData"][0]
+        self.player_data: dict = self.save_data[self.PLAYER_DATA_TAG][0]
 
         # Update equipment and cargo max storage based on player data
         self.equipment_max_storage_count = len(
             self.player_data[self.EQUIPMENT_LIST_TAG]
         )
         self.cargo_max_storage_count = len(self.player_data[self.CARGO_LIST_TAG])
+
+        # Game Data for module slot
+        self.game_object_data: List[dict] = self.save_data[self.GAME_OBJECT_DATA_TAG]
+        self.modules = {}
+        for game_object in self.game_object_data:
+            if self.MODULE_SLOT_TAG not in game_object:
+                continue
+            module_slot_number = game_object[self.MODULE_SLOT_TAG]
+            if module_slot_number not in self.modules:
+                self.modules[int(module_slot_number)] = game_object
+        self.module_count = len(self.modules)
 
     # ===================================================================================
     # Save File Management
@@ -204,3 +220,39 @@ class SaveManager:
             False if item == self.EMPTY_SLOT else True for item in cargo_list
         ]
         self.player_data[self.CARGO_VIEWED_TAG] = cargo_viewed
+
+    def set_module_list(self, module_list: list):
+        """Set the player's module list.
+
+        Args:
+            module_list (list): The new module list to set.
+        """
+        if not isinstance(module_list, list):
+            raise ValueError("Module list must be a list.")
+        if len(module_list) != self.module_count:
+            raise ValueError(
+                f"Module list length ({len(module_list)}) does not match module count ({self.module_count})."
+            )
+        for idx, obj_id in enumerate(module_list):
+            self.set_module_slot(idx, obj_id)
+
+    def set_module_slot(self, slot_number: int, obj_id: str):
+        """Set the module slot for a specific slot number.
+        Slot starts from 0 to module_count - 1.
+
+        Args:
+            slot_number (int): The slot number to set.
+            obj_id (str): The object ID to assign to the slot.
+        """
+        if slot_number < 0 or slot_number >= self.module_count:
+            raise ValueError("Invalid module slot number.")
+        self.modules[slot_number][self.MODULE_OBJECT_ID_TAG] = obj_id
+
+    def get_module_list(self) -> list:
+        """
+        Retrieve the list of module object IDs from the save data.
+        """
+        return [
+            module.get(self.MODULE_OBJECT_ID_TAG, self.EMPTY_SLOT)
+            for module in self.modules.values()
+        ]

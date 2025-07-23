@@ -1,8 +1,11 @@
+import logging
 import tkinter as tk
 from tkinter import messagebox, ttk
 
 from .game_data import GameData
 from .save_manager import SaveManager
+
+logger = logging.getLogger(__name__)
 
 
 class MainApp(tk.Tk):
@@ -20,7 +23,8 @@ class MainApp(tk.Tk):
         self.game_data = game_data
 
         self.title("Void War Save Editor")
-        self.geometry("800x600")
+        self.minsize(700, 700)
+        self.geometry("700x700")
 
         if not self.save_manager.save_file_path:
             self.destroy()
@@ -45,8 +49,23 @@ class MainApp(tk.Tk):
         main_frame = ttk.Frame(self, padding="10")
         main_frame.pack(fill=tk.BOTH, expand=True)
 
+        # Add scrollable canvas
+        canvas = tk.Canvas(main_frame)
+        scrollbar = ttk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
+        scrollable_frame = ttk.Frame(canvas)
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all")),
+        )
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
         # Resources Frame
-        resources_frame = ttk.LabelFrame(main_frame, text="Resources")
+        resources_frame = ttk.LabelFrame(scrollable_frame, text="Resources")
         resources_frame.pack(fill=tk.X, pady=5)
         self.scrap_var = tk.StringVar()
         self.missile_var = tk.StringVar()
@@ -100,9 +119,10 @@ class MainApp(tk.Tk):
         missile_max_btn.grid(row=1, column=2, padx=5, pady=5)
 
         # Equipment Frame
-        equipment_frame = ttk.LabelFrame(main_frame, text="Equipment")
+        equipment_frame = ttk.LabelFrame(scrollable_frame, text="Equipment")
         equipment_frame.pack(fill=tk.X, pady=5)
         self.equipment_combos = []
+        self.equipment_descriptions = []
         self.equipment_select_btns = []
         item_names = ["Empty Slot"] + list(self.game_data.item_id_name_map.values())
         categories = ["armor", "consumable", "psychic", "tool", "weapon"]
@@ -113,6 +133,10 @@ class MainApp(tk.Tk):
             combo = ttk.Combobox(row, width=25, state="readonly")
             combo["values"] = item_names
             combo.pack(side=tk.LEFT, padx=5)
+            combo.bind(
+                "<<ComboboxSelected>>",
+                lambda e, idx=i: self._update_equipment_description(idx),
+            )
             self.equipment_combos.append(combo)
             btns = []
             for cat in categories:
@@ -125,16 +149,20 @@ class MainApp(tk.Tk):
                 btn.pack(side=tk.LEFT, padx=2)
                 btns.append(btn)
             self.equipment_select_btns.append(btns)
-        # (No qty_entry, hidden from UI)
+            description_label = ttk.Label(equipment_frame, text="", wraplength=400)
+            description_label.pack(fill=tk.X, padx=5, pady=2)
+            self.equipment_descriptions.append(description_label)
 
         # Cargo Frame
-        cargo_frame = ttk.LabelFrame(main_frame, text="Cargo")
+        cargo_frame = ttk.LabelFrame(scrollable_frame, text="Cargo")
         cargo_frame.pack(fill=tk.X, pady=5)
         self.cargo_combos = []
-        self.cargo_select_btns = []
-        ship_weapon_types = set(
-            item_data.get("Type", "")
-            for item_data in self.game_data.ship_weapon.values()
+        self.cargo_descriptions = []
+        ship_weapon_types = sorted(
+            set(
+                item_data.get("Type", "")
+                for item_data in self.game_data.ship_weapon.values()
+            )
         )
         for i in range(4):
             row = ttk.Frame(cargo_frame)
@@ -147,7 +175,14 @@ class MainApp(tk.Tk):
                 if item_data.get("Name", "")
             ]
             combo.pack(side=tk.LEFT, padx=5)
+            combo.bind(
+                "<<ComboboxSelected>>",
+                lambda e, idx=i: self._update_cargo_description(idx),
+            )
             self.cargo_combos.append(combo)
+            description_label = ttk.Label(cargo_frame, text="", wraplength=400)
+            description_label.pack(fill=tk.X, padx=5, pady=2)
+            self.cargo_descriptions.append(description_label)
             btns = []
             for weapon_type in ship_weapon_types:
                 btn = ttk.Button(
@@ -160,11 +195,52 @@ class MainApp(tk.Tk):
                 )
                 btn.pack(side=tk.LEFT, padx=2)
                 btns.append(btn)
-            self.cargo_select_btns.append(btns)
+
+        # Modules Frame
+        modules_frame = ttk.LabelFrame(scrollable_frame, text="Modules")
+        modules_frame.pack(fill=tk.X, pady=5)
+        self.module_combos = []
+        self.module_descriptions = []
+
+        if not self.save_manager.modules:
+            modules_frame.config(state=tk.DISABLED)
+            ttk.Label(
+                modules_frame,
+                text="No modules available. Please add modules ingame first.",
+                foreground="red",
+            ).pack(pady=10)
+        else:
+            for slot_number, module_data in self.save_manager.modules.items():
+                row = ttk.Frame(modules_frame)
+                row.pack(fill=tk.X, padx=5, pady=2)
+                ttk.Label(row, text=f"Slot {slot_number}:").pack(side=tk.LEFT)
+                combo = ttk.Combobox(row, width=25, state="readonly")
+                combo["values"] = [
+                    module.get("Name", "")
+                    for module in self.game_data.ship_module.values()
+                    if module.get("Name", "")
+                ]
+                combo.set(module_data.get("obj", ""))
+                combo.pack(side=tk.LEFT, padx=5)
+                combo.bind(
+                    "<<ComboboxSelected>>",
+                    lambda e, idx=slot_number: self._update_module_description(idx),
+                )
+                self.module_combos.append(combo)
+                description_label = ttk.Label(modules_frame, text="", wraplength=400)
+                description_label.pack(fill=tk.X, padx=5, pady=2)
+                self.module_descriptions.append(description_label)
+                select_btn = ttk.Button(
+                    row,
+                    text="List",
+                    command=lambda idx=slot_number: self._open_module_table(idx),
+                    width=10,
+                )
+                select_btn.pack(side=tk.LEFT, padx=2)
 
         # Save Button
         save_button = ttk.Button(
-            main_frame, text="Save Changes", command=self._save_changes
+            scrollable_frame, text="Save Changes", command=self._save_changes
         )
         save_button.pack(pady=10)
 
@@ -188,6 +264,10 @@ class MainApp(tk.Tk):
             item_id = equipment_list[i] if i < len(equipment_list) else -1.0
             item_name = self.game_data.item_id_name_map.get(str(item_id), "Empty Slot")
             combo.set(item_name)
+            description = self.game_data.item_id_description_map.get(
+                str(item_id), "Item has no description"
+            )
+            self.equipment_descriptions[i].config(text=description)
         # (No qty_entry population, hidden from UI)
 
         # Cargo
@@ -199,6 +279,24 @@ class MainApp(tk.Tk):
             item_id = cargo_list[i] if i < len(cargo_list) else -1.0
             item_name = ship_weapon_id_name_map.get(str(item_id), "Empty Slot")
             combo.set(item_name)
+            description = self.game_data.item_id_description_map.get(
+                str(item_id), "Item has no description"
+            )
+            self.cargo_descriptions[i].config(text=description)
+
+        # Modules
+        if self.save_manager.modules:
+            module_list = self.save_manager.get_module_list()
+            for i, combo in enumerate(self.module_combos):
+                item_id = module_list[i] if i < len(module_list) else -1.0
+                item_name = self.game_data.item_id_name_map.get(
+                    str(item_id), "Empty Slot"
+                )
+                combo.set(item_name)
+                description = self.game_data.item_id_description_map.get(
+                    str(item_id), "Item has no description"
+                )
+                self.module_descriptions[i].config(text=description)
 
     def _save_changes(self):
         """
@@ -217,6 +315,10 @@ class MainApp(tk.Tk):
             # Cargo
             new_cargo = self._get_cargo_data()
             self.save_manager.set_cargo_list(new_cargo)
+
+            # Modules
+            new_modules = self._get_module_data()
+            self.save_manager.set_module_list(new_modules)
 
             self.save_manager.save_changes()
             self.status_var.set("Changes saved successfully!")
@@ -273,6 +375,23 @@ class MainApp(tk.Tk):
             cargo_list.append(item_id)
         return cargo_list
 
+    def _get_module_data(self):
+        """
+        Retrieve module data from UI.
+        Returns:
+            list: module_list
+        """
+        module_list = []
+        for combo in self.module_combos:
+            name = combo.get()
+            item_id = (
+                self.game_data.item_name_id_map.get(name, -1.0)
+                if name != "Empty Slot"
+                else -1.0
+            )
+            module_list.append(item_id)
+        return module_list
+
     def _open_equipment_table(self, slot_idx, category):
         """
         Open a table window for selecting equipment for a given slot and category.
@@ -293,7 +412,7 @@ class MainApp(tk.Tk):
 
         win = tk.Toplevel(self)
         win.title(f"Select {category.capitalize()}")
-        win.geometry("700x400")
+        win.geometry("800x400")
         tree = ttk.Treeview(win, columns=columns, show="headings")
         for col in columns:
             tree.heading(col, text=col)
@@ -316,9 +435,16 @@ class MainApp(tk.Tk):
             # Set the combo box value for the slot
             if item_id == "-1.0":
                 self.equipment_combos[slot_idx].set("Empty Slot")
+                self.equipment_descriptions[slot_idx].config(
+                    text="Item has no description"
+                )
             else:
                 name = cat_dict[item_id].get("Name", "")
+                description = cat_dict[item_id].get(
+                    "Description", "Item has no description"
+                )
                 self.equipment_combos[slot_idx].set(name)
+                self.equipment_descriptions[slot_idx].config(text=description)
             win.destroy()
 
         select_btn = ttk.Button(win, text="Select", command=select_item)
@@ -354,7 +480,7 @@ class MainApp(tk.Tk):
 
         win = tk.Toplevel(self)
         win.title(f"Select {weapon_type}")
-        win.geometry("700x400")
+        win.geometry("800x400")
         tree = ttk.Treeview(win, columns=columns, show="headings")
         for col in columns:
             tree.heading(col, text=col)
@@ -377,9 +503,14 @@ class MainApp(tk.Tk):
             # Set the combo box value for the slot
             if item_id == "-1.0":
                 self.cargo_combos[slot_idx].set("Empty Slot")
+                self.cargo_descriptions[slot_idx].config(text="Item has no description")
             else:
                 name = filtered_items[item_id].get("Name", "")
+                description = filtered_items[item_id].get(
+                    "Description", "Item has no description"
+                )
                 self.cargo_combos[slot_idx].set(name)
+                self.cargo_descriptions[slot_idx].config(text=description)
             win.destroy()
 
         select_btn = ttk.Button(win, text="Select", command=select_item)
@@ -389,3 +520,145 @@ class MainApp(tk.Tk):
             select_item()
 
         tree.bind("<Double-1>", on_double_click)
+
+    def _open_module_table(self, slot_idx):
+        """
+        Open a table window for selecting a module for a given slot.
+        """
+        filtered_items = self.game_data.ship_module
+        columns = []
+        if filtered_items:
+            first_item = next(iter(filtered_items.values()))
+            columns = [k for k in first_item.keys()]
+            if "Name" not in columns:
+                columns.insert(0, "Name")
+            if "Description" not in columns and "Description" in first_item:
+                columns.append("Description")
+        else:
+            columns = ["Name"]
+
+        win = tk.Toplevel(self)
+        win.title(f"Select Module for Slot {slot_idx}")
+        win.geometry("700x400")
+        tree = ttk.Treeview(win, columns=columns, show="headings")
+        for col in columns:
+            tree.heading(col, text=col)
+            tree.column(col, width=120)
+        # Insert items
+        for item_id, data in filtered_items.items():
+            values = [data.get(col, "") for col in columns]
+            tree.insert("", "end", values=values, iid=item_id)
+        tree.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+        def select_item():
+            selected = tree.selection()
+            if not selected:
+                messagebox.showwarning("Select Module", "Please select a module.")
+                return
+            item_id = selected[0]
+            name = filtered_items[item_id].get("Name", "")
+            description = filtered_items[item_id].get(
+                "Description", "Item has no description"
+            )
+            self.module_combos[slot_idx].set(name)
+            self.module_descriptions[slot_idx].config(text=description)
+            self.save_manager.set_module_slot(slot_idx, item_id)
+            win.destroy()
+
+        select_btn = ttk.Button(win, text="Select", command=select_item)
+        select_btn.pack(pady=5)
+
+        def on_double_click(event):
+            select_item()
+
+        tree.bind("<Double-1>", on_double_click)
+
+    def _update_equipment_description(self, idx):
+        """
+        Update the description label for the selected equipment slot.
+        """
+        item_name = self.equipment_combos[idx].get()
+        if item_name == "Empty Slot":
+            self.equipment_descriptions[idx].config(text="")
+        else:
+            item_id = self.game_data.item_name_id_map.get(item_name, "-1.0")
+            description = self.game_data.item_id_description_map.get(
+                item_id, "Item has no description"
+            )
+            self.equipment_descriptions[idx].config(text=description)
+
+    def _update_cargo_description(self, idx):
+        """
+        Update the description label for the selected cargo slot.
+        """
+        item_name = self.cargo_combos[idx].get()
+        if item_name == "Empty Slot":
+            self.cargo_descriptions[idx].config(text="")
+        else:
+            item_id = next(
+                (
+                    k
+                    for k, v in self.game_data.ship_weapon.items()
+                    if v.get("Name") == item_name
+                ),
+                "-1.0",
+            )
+            description = self.game_data.item_id_description_map.get(
+                item_id, "Item has no description"
+            )
+            self.cargo_descriptions[idx].config(text=description)
+        """
+        Update the description label for the selected equipment slot.
+        """
+        item_name = self.equipment_combos[idx].get()
+        if item_name == "Empty Slot":
+            self.equipment_descriptions[idx].config(text="")
+        else:
+            item_id = self.game_data.item_name_id_map.get(item_name, "-1.0")
+            description = self.game_data.item_id_description_map.get(
+                item_id, "Item has no description"
+            )
+            self.equipment_descriptions[idx].config(text=description)
+
+    def _update_cargo_description(self, idx):
+        """
+        Update the description label for the selected cargo slot.
+        """
+        item_name = self.cargo_combos[idx].get()
+        if item_name == "Empty Slot":
+            self.cargo_descriptions[idx].config(text="")
+        else:
+            item_id = next(
+                (
+                    k
+                    for k, v in self.game_data.ship_weapon.items()
+                    if v.get("Name") == item_name
+                ),
+                "-1.0",
+            )
+            description = self.game_data.item_id_description_map.get(
+                item_id, "Item has no description"
+            )
+            self.cargo_descriptions[idx].config(text=description)
+
+    def _update_module_description(self, idx):
+        """
+        Update the description label for the selected module slot.
+        """
+        item_name = self.module_combos[idx].get()
+        item_id = next(
+            (
+                k
+                for k, v in self.game_data.ship_module.items()
+                if v.get("Name") == item_name
+            ),
+            "-1.0",
+        )
+        description = self.game_data.item_id_description_map.get(
+            item_id, "Item has no description"
+        )
+        self.module_descriptions[idx].config(text=description)
+        description = self.game_data.item_id_description_map.get(
+            item_id, "Item has no description"
+        )
+        self.module_descriptions[idx].config(text=description)
