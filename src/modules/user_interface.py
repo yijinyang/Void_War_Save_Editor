@@ -1,6 +1,7 @@
 import logging
 import tkinter as tk
 from tkinter import messagebox, ttk
+from functools import partial
 
 from .game_data import GameData
 from .save_manager import SaveManager
@@ -203,14 +204,15 @@ class MainApp(tk.Tk):
         self.module_descriptions = []
 
         if not self.save_manager.modules:
-            modules_frame.config(state=tk.DISABLED)
             ttk.Label(
                 modules_frame,
                 text="No modules available. Please add modules ingame first.",
                 foreground="red",
             ).pack(pady=10)
         else:
-            for slot_number, module_data in self.save_manager.modules.items():
+            sorted_slots = sorted(self.save_manager.modules.keys())
+            for slot_number in sorted_slots:
+                module_data = self.save_manager.modules[slot_number]
                 row = ttk.Frame(modules_frame)
                 row.pack(fill=tk.X, padx=5, pady=2)
                 ttk.Label(row, text=f"Slot {slot_number}:").pack(side=tk.LEFT)
@@ -233,10 +235,15 @@ class MainApp(tk.Tk):
                 select_btn = ttk.Button(
                     row,
                     text="List",
-                    command=lambda idx=slot_number: self._open_module_table(idx),
+                    command=partial(self._open_module_table, slot_number),
                     width=10,
                 )
                 select_btn.pack(side=tk.LEFT, padx=2)
+
+        # If no modules exist, disable all widgets inside the frame
+        if not self.save_manager.modules:
+            for child in modules_frame.winfo_children():
+                child.configure(state=tk.DISABLED)
 
         # Save Button
         save_button = ttk.Button(
@@ -524,6 +531,7 @@ class MainApp(tk.Tk):
     def _open_module_table(self, slot_idx):
         """
         Open a table window for selecting a module for a given slot.
+        Fix: Ensure the correct slot index is used to update the combo box and save data.
         """
         filtered_items = self.game_data.ship_module
         columns = []
@@ -556,13 +564,14 @@ class MainApp(tk.Tk):
                 messagebox.showwarning("Select Module", "Please select a module.")
                 return
             item_id = selected[0]
+            # Correctly update the combo box and save data for the selected slot
             name = filtered_items[item_id].get("Name", "")
             description = filtered_items[item_id].get(
                 "Description", "Item has no description"
             )
             self.module_combos[slot_idx].set(name)
             self.module_descriptions[slot_idx].config(text=description)
-            self.save_manager.set_module_slot(slot_idx, item_id)
+            self.save_manager.set_module_slot(slot_idx, item_id)  # Update save data
             win.destroy()
 
         select_btn = ttk.Button(win, text="Select", command=select_item)

@@ -252,7 +252,7 @@ class SaveManager:
         """
         Retrieve the list of module object IDs from the save data.
         """
-        return [
-            module.get(self.MODULE_OBJECT_ID_TAG, self.EMPTY_SLOT)
-            for module in self.modules.values()
-        ]
+        if not self.modules:
+            return []
+        sorted_slots = sorted(self.modules.keys())
+        return [self.modules[slot][self.MODULE_OBJECT_ID_TAG] for slot in sorted_slots]
