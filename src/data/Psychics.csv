@@ -1,0 +1,71 @@
+Name,Id,Scrap,Description,Cooldown,ChargeTime,ProjectileSpeed,Duration
+Aetheric Gate,ItemTeleportGroupTarget,50,Teleport caster and nearby allied crew to target room.,20,0,0,0
+Aetherstride,ItemTeleportTarget,10,Teleport to target room.,10,0,0,0
+Animate Dead,ItemSummonZombie2x,10,Summon a pair ofGhouls in target room.,20,10,300,0
+Animate Dead 3x,ItemSummonZombie3x,4,Summon 3Ghouls,60,6,300,0
+Animate Noxious Dead,ItemSummonZombiePoison3x,20,Summon 3Rotspawnin target room.,40,10,300,0
+Anionic Field,ItemSystemIonImmune,40,Target system becomes immune to ion effects for 20 seconds,20,1,600,20
+Blink,ItemBlink_blobBoss,10,Instantly teleport to a random room on opposing ship.,30,0,0,0
+Blink,ItemBlink_imp,10,Instantly teleport to a random room.,8,0,0,0
+Blood Spear,ItemWretchCannon,20,Cast a projectile that deals 1 damage to target ship. Automatically sacrifices nearestThrallto reduce cooldown to 3 seconds.,60,1,900,0
+Bloodcurse,ItemSpawnThrallTarget,20,Cast a projectile that deals 10 HP damage and curses hostile crew in target room for 20 seconds. Cursed crew spawn a friendlyThrallon death.,40,1,900,90
+Burden,ItemSlowTarget,10,Cast a projectile that slows hostile units in target area for 10 seconds.,16,0,600,20
+Chaotic Rift,ItemTeleportProjectile_demon,80,Teleport all crew in target room to random rooms on the opposing ship.,20,15,150,0
+Chaotic Rift,ItemTeleportProjectile,40,Teleport all crew in target room to random rooms on the opposing ship.,20,0,450,0
+Coagulate,ItemWretchSeal,80,"Destroy thrall to repair systems, breaches, and seal doors for 15 seconds",1,0,0,0
+Coagulate,ItemWretchSealCannon,30,Cast a projectile that repairs all breaches in target room and repairs 1 system damage. Automatically sacrifices nearestThrallto repair 1 additional system damage in target room.,3,2,300,0
+Death Bolt,ItemMindBolt_witch,20,Cast a projectile that deals 25 HP damage to hostile crew in target room.,30,0,900,0
+Demoralize,ItemDemoralizeTarget,80,Halve DPS of hostile crew in target room for 20s.,30,0,0,20
+Devour,ItemDevour,80,Consume nearby bloodstain to heal 10 HP,8,0,0,0
+Doom Ritual,ItemSummonDemonWar,80,Summon aWarbringerin target room.,120,16,300,0
+Drain Strength,ItemStrengthDrainTarget3,20,Cast a projectile that reduces DPS of hostile crew in target room by 3.,30,0,600,20
+Embolden,ItemEmbolden,20,"Instantly grant +2 DPS, +50% move speed, +50% repair speed, and immunity to debilitating effects to all allied crew on current ship for 15 seconds. Affects poison, slow, stun, immobilize, mind control, curses, and DPS reduction.",30,0,0,15
+Entangle,ItemRootNearbyAll,20,Immobilize all nearby crew for 10 seconds,15,0,0,10
+Exsanguinate,ItemWretchHeal,80,Sacrifice target thrall to heal nearby crew,20,0,0,0
+Fear,ItemFearNearbyAll,15,Fear all nearby crew for 10 seconds.,30,0,0,10
+Fireball,ItemFireball,20,Cast a fireball at target room.,30,0,450,0
+Force Shield,ItemForceShield,30,Shield the immediate area against a hostile projectile.,30,0,0,0
+Greater Animate Dead,ItemSummonZombie5x,30,Summon 5Ghouls in target room.,30,16,300,0
+Greater Force Shield,ItemForceShieldLg,4,Shield against a hostile projectile,20,0,0,0
+Mind Bolt,ItemMindBolt,20,Cast a projectile that deals 15 HP damage to hostile crew in target room.,30,0,900,0
+Noxious Blast,ItemPoisonBlastTarget,20,Cast a poisonous projectile at target room.,30,0,450,0
+Petrify,ItemStunCannon,10,Cast a projectile that stuns all crew in target room for 12 seconds.,20,2,600,12
+Positron Barrier,ItemSystemDamageImmune,80,Cast a projectile that shields a system from damage for 20 seconds. Does not prevent ion damage.,20,1,600,20
+Psychic Shriek,ItemStunCannon2,10,Cast a projectile that stuns enemy crew in target room for 5 seconds.,40,1,900,5
+Purify,ItemCleanse,20,"Instantly grant immunity to debilitating effects to all allied crew on current ship for 10 seconds. Affects poison, slow, stun, immobilize, mind control, curses, and DPS reduction.",30,0,0,0
+Raise Abyssal Tendril,ItemSummonDemonHydraTail_boss,666,Summon anAbyssal Tendril.,20,0,0,0
+Raise Dead,ItemSummonZombie,4,Summon aGhoulin target room.,30,6,300,0
+Raise Guardian Tentacle,ItemSummonDemonHydraGuardianTail,666,Temporarily summon 1 Guardian Hydra Tail,5,0,0,0
+Raise Noxious Dead,ItemSummonZombiePoison,4,Summon a noxious corpse,30,6,300,0
+Raise Tendril,ItemSummonDemonHydraTail,666,Summon aTendril.,15,1,0,0
+Rejuvenate,ItemHeal,20,Cast a projectile that heals allied crew in target room for 25 HP.,20,1,450,0
+Rupture Thrall,ItemWretchDetonate,80,Explode a thrall harming all nearby hostile crew,20,0,0,0
+Sire Rotspawn,ItemSummonZombie_wight,10,Instantly summon 3Rotspawnin target room.,40,0,300,0
+Smother,ItemPoisonRoomInstant,10,Instantly extinguish nearby fires and create toxic gas.,25,0,0,0
+Soul Barrage,ItemPsyCannon2,40,Cast 2 projectiles that each deal 1 damage to target ship.,30,14,600,0
+Soul Spear,ItemPsyCannon,20,Cast a projectile that deals 1 damage to target ship.,30,8,600,0
+Soul Storm,ItemPsyCannon3,60,Cast 3 projectiles that each deal 1 damage to target ship.,30,20,600,0
+Spawn Fleshling,ItemSummonDemonImp,666,Instantly spawn aFleshlingnearby.,14,0,0,0
+Spawn Skeleton,ItemSummonRevenant_boss,10,Instantly spawn aSkeletonnearby.,14,0,0,0
+Splatter,ItemWretchRandomHeal,80,Sacrifice nearestThrallto heal nearby crew,20,0,0,0
+Starscream,ItemStunNearbyAll,10,Instantly stun all enemy crew aboard current ship for 4 seconds.,30,0,0,4
+Summon Bloatmite,ItemSummonDemonBloat,20,Temporarily summon aBloat Mitein target room.,40,10,300,0
+Summon Doom Effigy,ItemSummonDemonEidolon,60,Temporarily summon aDoom Effigyin target room.,120,10,300,0
+Summon Fiend,ItemSummonDemonCambion,60,Temporarily summon aFiendin target room.,90,16,300,0
+Summon Fleshlings,ItemSummonDemonImp3x,30,Temporarily summon 3Fleshlings in target room.,30,1,300,0
+Summon Hound,ItemSummonDemonHound,20,Temporarily summon aHoundnearby.,40,0,0,0
+Summon Hungerer,ItemSummonDemonMaw,20,Temporarily summon aHungererin target room.,90,10,300,0
+Summon Necrolurch,ItemSummonDemonBlob,60,Temporarily summon aNecrolurchin target room.,90,16,300,0
+Summon Redeemer,ItemSummonDemonRedeemer,80,Temporarily summon aRedeemerin target room.,120,16,300,0
+Summon Skeleton,ItemSummonRevenant,10,Summon aSkeletonin target room.,20,10,300,0
+Summon Skeletons,ItemSummonRevenant_eidolon,666,Summon 2Skeletons in target room.,20,1,300,0
+Summon Stygian Worm,ItemSummonDemonHydraHead,40,Temporarily summon aStygian Wormnearby.,120,0,0,0
+Summon Thrall,ItemSummonZombieBlood,20,Summon aThrallin target room.,25,10,300,0
+Summon Wraithblade,ItemSummonDemonSword,20,Temporarily summon aWraithbladenearby.,30,0,0,0
+Technovirus,ItemSystemCannotRepair,80,Emit a projectile that prevents target system from being repaired for 20 seconds.,50,1,600,20
+Thermal Bastion,ItemSystemFireImmune,60,Target system becomes immune to fire for 20 seconds,20,1,600,20
+Thrallwalk,ItemTeleportToWretch,10,Teleport to aThralland destroy it.,5,1,0,0
+Transfusion,ItemWretchHealCannon,30,Cast a projectile that heals all allied crew in target room for 10 HP. Automatically sacrifices nearest alliedThrallto increase heal to 35 HP.,3,1,300,0
+Treasonous Whispers,ItemMindControl,40,Cast a projectile that mind controls a hostile crew in target room.,25,2,450,11
+Undead Tide,ItemSummonZombie3x_proj,80,Summon 3Ghouls,50,0,300,0
+Weird Entanglement,ItemRootTarget,10,Cast a projectile that immobilizes hostile crew in targeted area for 10 seconds.,10,1,450,15

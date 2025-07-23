@@ -1,0 +1,52 @@
+Name,Id,Scrap,Description
+Arc Rifle,ItemGun_sysDPS,25,+1 DPS+3 DPS while nearby ship systems
+Arc Talons,ItemFist_sysDPS,20,+1 DPS+1 DPS in small rooms+2 DPS while nearby ship systems
+Assault Drill,ItemFist_doorBreakBreach,15,"+1 DPS+2 DPS in small rooms+1000% door break speedWhile on enemy ship, creates breach on kill"
+Assault Pistol,ItemPistol_moveSpeed,10,+1 DPS+1 DPS in medium rooms+25% move speed
+Assault Rifle,ItemGun_rapidFire1,10,+1 DPS+1 DPS in large rooms
+Assault Sledge,ItemHammer_doorBreak_sysBreak,20,+1 DPS+400% door break speed+200% sabotage speed
+Athame,ItemSword_zombieOnKill,30,+2 DPSSpawns friendly Ghoul on kill
+Beam Carbine,ItemGun_beam,15,+2 DPS+1 DPS in large rooms
+Blessed Blade,ItemSword_antiDemon,15,+2 DPS+3 DPS against Demonic
+Blessed Hammer,ItemHammer_antiDemon,15,+1 DPS+3 DPS against targets with over 100 max HP+3 DPS against Demonic
+Blessed Machine Cannon,ItemGun_rapidFire3_antiDemon,25,+1 DPS+3 DPS in large rooms+3 DPS against DemonicAttacks slightly damage nearby enemies-25% move speed
+Ceremonial Sword,ItemSword_antiHeavy,20,+2 DPS+5 DPS against enemies with over 100 max HP
+Combat Knife,ItemKnife_basic,2,+1 DPS
+Cult Blade,ItemSword_antiLight,15,+2 DPS+1 DPS against targets with under 50 max HP
+Cursed Spear,ItemSpear_drainStrength,30,+1 DPS+1 DPS in medium rooms-3 DPS on nearby enemy crew for 20 seconds on kill
+Decapitator,ItemSword_chainsaw,25,+4 DPS
+Electro-Maul,ItemHammer_stun,15,+1 DPS+3 DPS against targets with over 100 max HPStuns nearby enemies for 5 seconds on kill
+Electrobaton,ItemMace_stun,10,+1 DPS+1 DPS against targets with under 50 max HPStuns nearby enemies for 5 seconds on kill
+Eviscerator,ItemFist_lifeSteal,15,+2 DPS+1 DPS in small roomsKills restore 5 life
+Fell Axe,ItemAxe_basic3,20,+3 DPS+1 DPS in medium roomsAttacks slightly damage nearby enemies
+Gore Sledge,ItemHammer_explode,15,+2 DPS+2 DPS against targets with over 100 max HPKills explode dealing 10 damage to enemies
+Goreblaster,ItemPistol_explode,20,+2 DPS+1 DPS in medium roomsKills explode dealing 10 damage to enemies
+Grav-Carbine,ItemGun_slow,15,+1 DPS+1 DPS in large roomsSlows enemy crew
+Grav-Spear,ItemSpear_slow,15,+1 DPS+1 DPS in medium roomsSlows enemy crew
+Grenade Launcher,ItemGun_explode,10,+1 DPS+1 DPS in large roomsKills explode dealing 10 damage to enemies
+Havoc Maul,ItemHammer_sysDmgOnKill,15,+2 DPS+2 DPS against targets with over 100 max HPExtra damage to nearby enemy system on kill
+Hellfire Blade,ItemSword_hellfire,25,"+3 DPSWhile on enemy ship, creates fire on killGrants fire immunity to nearby friendly crew for 30 seconds on kill"
+Holy Scepter,ItemMace_cleanse,15,+1 DPS+1 DPS against targets with under 50 max HPPurifies nearby friendly crew for 10 seconds on kill
+Ion Carbine,ItemGun_ionOnKill,15,+1 DPSKills deal 1 ion damage to nearby enemy systems
+Machine Cannon,ItemGun_rapidFire3,25,+1 DPS+3 DPS in large roomsAttacks slightly damage nearby enemies-25% move speed
+Machine Pistol,ItemPistol_rapidFire,10,+1 DPS+1 DPS in medium roomsAttacks slightly damage nearby enemies
+Machine Rifle,ItemGun_rapidFire2,15,+1 DPS+2 DPS in large roomsAttacks slightly damage nearby enemies
+Magma Gun,ItemGun_flame2,30,+2 DPSAttacks damage all nearby enemies
+Plague Knife,ItemKnife_poison,3,+1 DPS+3 poison DPS
+Plague Sword,ItemSword_poison,10,+1 DPS+5 poison DPS
+Plasma Projector,ItemGun_flame,25,+1 DPSAttacks damage all nearby enemies
+Power Axe,ItemAxe_basic2,10,+2 DPS+1 DPS in medium roomsAttacks slightly damage nearby enemies
+Power Claw,ItemFist_basic1,3,+1 DPS+1 DPS in small rooms
+Power Glaive,ItemSpear_basic2,15,+1 DPS+2 DPS in medium rooms
+Power Hammer,ItemHammer_basic1,10,+1 DPS+3 DPS against targets with over 100 max HP
+Power Sword,ItemSword_basic,10,+2 DPS
+Pulverizer,ItemFist_sysDmgOnKill,15,+1 DPS+2 DPS in small roomsExtra damage to nearby enemy system on kill
+Ripper Fist,ItemFist_doorBreak,20,+1 DPS+3 DPS in small rooms+1000% door break speed
+Rotblaster,ItemPistol_poison,10,+1 DPS+1 DPS in large roomsKills release toxic gas
+Siege Axe,ItemAxe_doorBreak,20,+2 DPS+1 DPS in medium rooms+400% door break speedAttacks slightly damage nearby enemies
+Siege Claw,ItemFist_basic2,10,+1 DPS+1 DPS in small rooms+400% door break speed
+Soul Thresher,ItemSpear_DPSOnKill,35,+1 DPS+1 DPS in medium roomsKills grant +2 DPS for the duration of the encounter
+Spiked Club,ItemMace_basic1,15,+1 DPS+2 DPS against targets with under 50 max HP
+Thirsting Glaive,ItemSpear_lifeSteal,35,+1 DPS+1 DPS in medium roomsKills restore 10 life
+War Pick,ItemHammer_antiHeavy,15,+1 DPS+4 DPS against targets with over 100 max HP
+Zenith Blade,ItemSword_zenith,30,Begin encounters with +8 DPS. Lose 2 bonus DPS per kill for the duration of the encounter

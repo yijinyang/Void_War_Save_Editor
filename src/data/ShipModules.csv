@@ -1,0 +1,59 @@
+Name,Id,Scrap,Description
+Aberrant Conduit,Module_DPS_demon,40,+2 DPS to all Demonic units
+Adaptive Nanoplate,Module_HP_raider,40,+10 HP to all Raider Outlaw units
+Altar of Blood,Module_DPS_blood,40,+2 DPS to all Blood Cultist units
+Ancient Psytronome,Module_fightStartDamageEnemies,80,Applies 5-22 damage to all enemy crew at the start of every fight
+Assault Harnesses,Module_doorBreakStun,40,Your crew will stun nearby enemy crew for 8s upon destroying a door.
+Barrier Relay,Module_forceShieldOnWeaponShot,90,"For every other weapon you fire, gain a force shield on a random room (up to a maximum of 2)."
+Bio-Regenerator,Module_consumablesGrantHP,30,Consumables restore 10 HP in addition to their normal effect
+Bunker Drills,Module_doorBreakInvulnerable,40,Your crew are invulnerable against crew attacks while breaking doors.
+Carnage Optics,Module_sensorVisionGainCrewDamage,40,Your ship's weapons deal +10 crew damage to enemies while your Sensor Status is Active.
+Carnivore Hatch,Module_launchBayEatsEnemies,40,Launch Bays can load enemy crew. Prioritizes enemy crew and deals 140 damage to them when loading. Triggers 30s cooldown after use.
+Chaos Star,Module_bonusCrewThrallSkeleRot,50,Calls upon the dark gods in times of need
+Circadian Stabilizer,Module_restHealBonus,80,Resting heals 15% extra HP. Does not stack.
+Combat Subroutines,Module_DPS_technoLow,40,+2 DPS to all Machine Slave units
+Corpse Effigy,Module_poisonSlowsRepair,40,Halves the repair speed of poisoned enemies
+Death Totem,Module_DPS_death,40,+2 DPS to all Death Cultist units
+Demolisher Rounds,Module_shotsBreakDoors,30,Your ship's weapons that deal hull damage now break doors on impact
+Demon Lance,Module_lanceBonusDamageCostCrewHP,120,Lances deal 1 extra damage for each crew aboard your ship. Each lance shot you fire depletes the current HP of all shipboard crew by 50%.
+Desecrated Shrine,Module_HP_demon,30,+10 HP to all Demonic units
+Distortion Sphere,Module_firstEnemyShotMisses,40,First enemy ship weapon fired at your ship will always miss
+Ghost-Linked Focus Reticle,Module_firstWeaponAlwaysHits,80,"The first time your ship fires a weapon during a fight, it always hits"
+God-King's Mantle,Module_rewardExtraChoice,20,Select from three rewards instead of two when choosing rewards
+Guardian Protocols,Module_HP_techno,40,+10 HP to all Machine Priest units
+Hardened Casing,Module_HP_technoLow,40,+10 HP to all Machine Slave units
+Hate Matrix,Module_spellsDoDamage,40,All non-summoning psychic projectiles deal 1 extra damage to the targeted ship in addition to their normal effect
+Heat Shielding,Module_systemHalvesFireDamage,30,Systems and subsystems take half damage from fire
+Hyperlinked Neural Socket,Module_commander_speed,10,+50% move speed to Commander
+Inertial Probe,Module_sensorVisionLoseEvasion,40,Enemy ships lose 10% evasion when your Sensor Status is Active
+Interdictor Array,Module_sensorVisionDelaysJump,10,Enemy ships cannot engage subspace drives while your Sensor Status is Active
+Meditech Boosters,Module_HP_empire,40,+10 HP to all Imperial Citizen units
+Mirrored Fire Control,Module_firstWeaponDoubleShots,150,"The first time your ship fires a non-beam weapon, that weapon's shot count is doubled"
+Night Field,Module_preChargedWeapons,130,Begin fights with fully pre-charged weapons
+Obscene Organ,Module_DPS_HP_demon,30,+1 DPS and +10 HP to all Demonic units
+Ocular-Laser Implants,Module_DPS_techno,40,+2 DPS to all Machine Priest units
+Pain Engine,Module_HP_blood,40,+10 HP to all Blood Cultist units
+Pathogenic Recycler Unit,Module_HP_death,40,+10 HP to all Death Cultist units
+Psyk-Chem Injectors,Module_DPS_war,40,+2 DPS to all War Cultist units
+Purity of Steel,Module_repairAppliesCleanse,40,"Upon repairing a system, friendly crew gain immunity to debilitating effects for 10 seconds"
+Reaper Shells,Module_firstWeaponDoubleDamage,60,"The first time your ship fires a damaging weapon during a fight, that weapon's base damage is doubled"
+Seal of Cerberus,Module_bonusCrewHound,40,Call upon a demonic hound
+Seeker Missiles,Module_consumablesFireProjectiles,20,Friendly crew fire a missile at the enemy ship upon activating a consumable
+Seraphic Resonators,Module_lanceChargesRandomWeapon,40,"Each lance shot you fire fully charges one random, uncharged weapon (must be powered)."
+Shatterfields,Module_doorBreakAfterBoarding,30,Your crew gain 1000% door break speed for 10s when boarding an enemy ship for the first time during a fight using a Launch Bay
+Shredder Payload,Module_boardingCrewDamage,40,Assault sleds fired from Launch Bays deal 15-50 damage to enemy crew in target room
+Sigil of Rot,Module_poisonDoubleDamage,40,Poison does double damage to enemy crew
+Spectral Drives,Module_spellEvasion,90,Your ship can now dodge spells using its evasion attribute
+Splinter Bombs,Module_DPS_inVacuum,30,Friendly crew gain +3 DPS when fighting in vacuum
+Standard-Issue Sidearm,Module_DPS_empire,40,+2 DPS to all Imperial Citizen units
+Support Prosthetics,Module_huskRepairSpeed,40,Friendly Machine Slave units repair 50% faster
+Synaptic Enforcers,Module_HP_war,40,+10 HP to all War Cultist units
+Teleport Nexus,Module_recallCrewAlways,40,You may freely recall crew back to your ship at any time
+Temporal Shroud,Module_fightStartHullInvulnerable,60,Immunity to hull damage and system damage from enemy projectiles for the first 25 seconds of combat
+Terminus Bands,Module_crewExplodeOnDeath,80,All friendly crew explode on death dealing 10 damage to nearby enemy crew
+Thrice-cursed Reliquary,Module_rewardExtraCrystal,40,Frequently gain a Dark Matter Prism (in addition to normal rewards) after defeating an enemy ship
+Tower of Skulls,Module_DPS_commanderFightStart,20,Commander gains +10 DPS for 30 seconds at the start of every fight
+Vector Analyzer,Module_sensorVisionGainEvasion,40,Gain 10% evasion while your Sensor Status is Active
+Vile Sepulchre,Module_bonusCrewOnEnemySpellCast,50,"Once per fight, summon a random demon on the first enemy crew to use a psychic power"
+Volt Knives,Module_DPS_raider,40,+2 DPS to all Raider Outlaw units
+Wrath of Angels,Module_lancesAlwaysHit,40,Your lances always hit
