@@ -1,0 +1,27 @@
+Name,Id,Scrap,Description,Cooldown,ProjectileSpeed,ChargeTime
+Antidote,ConsumableAntidote,3,Consumable: Grant poison immunity to self and nearby allied crew for 120 seconds,10,0,0
+Bloated Reagents,ConsumableSummonBloat,2,Consumable: Ritual materials to summon aBloat Mite,10,300,0
+Breach Charge,ConsumableBreachHull,2,Consumable: Creates up to 3 hull breaches,25,0,0
+Chaos Shard,ConsumableTeleportProjectile,4,Consumable: Teleport all crew in target room to random rooms on opposing ship.,5,450,0
+Cryofoam,ConsumableExtinguisher,2,Consumable: Extinguish all fire aboard the ship,10,0,0
+Damage Control Kit,ConsumableDamageControlKit,2,Seal all nearby breaches and repair 2 system damage,10,0,0
+Dark Crystal,ConsumableTeleportSelfTarget,2,Consumable: Teleport self to target room.,5,0,0
+Dark Matter Prism,ConsumableTeleportRoomTarget,2,Consumable: Teleport self and nearby allied crew to target room. Deals 15 HP damage to enemies in target room.,5,0,0
+Doom Reagents,ConsumableSummonEidolon,4,Consumable: Ritual materials to summon aDoom Effigy,10,300,6
+Exalted Reagents,ConsumableSummonRedeemer,10,Consumable: Ritual materials to summon aRedeemer,10,300,6
+Fiendish Reagents,ConsumableSummonCambion,4,Consumable: Ritual materials to summon aFiend,10,300,4
+Fleshy Reagents,ConsumableSummonDemonImp3x,2,Consumable: Ritual materials to summon 9Fleshlings,10,300,0
+Fusion Charge,ConsumableDamageSystem,2,Consumable: Deal 5 damage to nearby system,10,0,0
+Howling Reagents,ConsumableSummonHound,2,Consumable: Ritual materials to summon a pair ofHounds,10,300,0
+Hull Integrity Patch,ConsumableRepairHull,18,Consumable: Instantly restore 5 hull points,10,0,0
+Hungering Reagents,ConsumableSummonMaw,2,Consumable: Ritual materials to summon aHungerer,5,300,0
+Med-Drone,ConsumableMedKitRemote,6,Consumable: Heal all allied crew in target room for 25 HP,10,300,0
+Med-Kit,ConsumableMedKit,6,Consumable: Heal self and nearby allied crew for 25 HP,10,0,0
+Microshield,ConsumableDeployableShield,2,Consumable: Shield an area against a hostile projectile,10,300,0
+Necrotizing Reagents,ConsumableSummonBlob,6,Consumable: Ritual materials to summon aNecrolurch,10,300,4
+Repair Drone,ConsumableDamageControlRemote,4,Consumable: Seal all breaches and repair 2 system damage in target room.,10,300,0
+Ruinous Reagents,ConsumableSummonHellbringer,10,Consumable: Ritual materials to summon aWarbringer,10,300,4
+Shattered Reagents,ConsumableSummonSword,2,Consumable: Ritual materials to summon aWraithblade,10,300,0
+Stygian Reagents,ConsumableSummonHydra,2,Consumable: Ritual materials to summon aStygian Worm,10,0,0
+Stygian Reagents,ConsumableSummonGuardianHydra,4,Consumable: Ritual materials to summon a guardian demon,10,0,4
+System Repair Kit,ConsumableRepairSystem,4,Consumable: Repair nearby system for 1 damage,10,0,0

@@ -1,0 +1,71 @@
+Name,Id,Scrap,Energy,ChargeTime,Pierce,Count,Spread,Speed,Hull,Ion,Crew,FireChance,BreachChance,WrapBreachChance,Description,Type,Length,MaxCharges,AmmoCost
+Fusillade I,WPArea3,70,2,16,0,3,45,600,1,0,0,0,0,0,,Area,,,
+Fusillade II,WPArea8,120,3,27,0,7,60,600,1,0,0,0,0,0,,Area,,,
+Inferno Fougasse,WPAreaFire4,80,2,20,0,3,60,300,0,0,0,100,0,0,,Area,,,
+Ion Tunneler,WPAreaIon5,60,1,17,0,3,45,450,0,1,0,0,0,0,Ignores shield,Area,,,
+Magnetic Pulse I,WPAreaMag2,30,1,12,0,2,50,600,0,0,0,0,0,0,Stuns crew in target room for 5 seconds,Area,,,
+Magnetic Pulse II,WPAreaMag3,60,2,13,0,3,50,600,0,0,0,0,0,0,Stuns crew in target room for 5 seconds,Area,,,
+Magnetic Pulse III,WPAreaMag5,80,2,17,0,4,50,600,0,0,0,0,0,0,Stuns crew in target room for 5 seconds,Area,,,
+Corruption Beam,WPBeamPoison,30,1,14,0,,,,0,0,0,0,0,0,Creates corrosive gas,Beam,85,,
+Devastator Beam,WPPierceBeam1,80,3,18,1,,,,2,0,0,0,0,0,1 Damage Reduced Per Shield Pierced,Beam,40,,
+Energy Beam I,WPBeam1,30,1,11,0,,,,1,0,0,0,0,0,,Beam,50,,
+Energy Beam II,WPBeam2,60,2,19,0,,,,1,0,0,0,0,0,,Beam,110,,
+Flayer Beam,WPBeamBreach,100,3,21,0,,,,1,0,0,0,80,0,,Beam,85,,
+Grave Beam,WPBeamZombie,60,1,28,0,,,,1,0,0,0,0,0,Does not damage systems; Spawns ghouls in rooms hit,Beam,110,,
+Gravitic Ray,WPBeamSlow,20,1,15,2,,,,0,0,10,0,0,0,Slows crew in rooms hit for 20 seconds,Beam,110,,
+Heat Beam I,WPBeamFire1,60,2,17,0,,,,0,0,0,100,0,0,,Beam,50,,
+Heat Beam II,WPBeamFire2,90,3,20,0,,,,0,0,0,100,0,0,,Beam,110,,
+Inferno Beam,WPBeamInferno,100,3,25,1,,,,2,0,0,50,0,0,1 Damage Reduced Per Shield Pierced,Beam,85,,
+Macro Devastator,WPHyperBeam,110,4,27,2,,,,3,0,0,0,10,0,1 Damage Reduced Per Shield Pierced,Beam,85,,
+Neuralizer,WPBeamStun,60,2,18,0,,,,0,0,5,0,0,0,Inflicts 5 HP damage and stuns crew in rooms hit for 8 seconds,Beam,50,,
+Energy Lance,WPLance1,50,1,12,0,1,,2400,1,0,3,0,5,0,,Lance,,4,
+Flame Lance,WPBlessedLance,60,1,12,0,1,,2400,1,0,3,100,0,0,,Lance,,3,
+Gravitic Lance,WPLanceSlow,50,1,5,0,1,,2400,1,0,3,0,0,0,Slows crew in target room for 60 seconds,Lance,,2,
+Heavy Energy Lance,WPLance2,45,2,12,0,1,,2400,2,0,3,0,5,0,,Lance,,2,
+Heavy Ion Lance,WPLanceIon,50,1,25,0,1,,2400,0,5,0,0,0,0,,Lance,,2,
+Kinetic Lance,WPLanceBreach,60,1,11,0,1,,2400,1,0,3,0,100,0,Slows crew in target room for 6 seconds; Creates multiple breaches in target room,Lance,,2,
+Macro Lance,WPLance3,70,2,12,0,1,,2400,3,0,3,0,5,0,,Lance,,2,
+Neural Lance,WPLanceStun,60,1,11,0,1,,2400,0,0,0,0,0,0,Stuns all crew in room for 20 seconds,Lance,,2,
+Warp Lance,WPLanceWarp1,60,1,12,0,1,,2400,1,0,0,0,0,100,,Lance,,2,
+Acid Missile,WPMissile1x1PsnCloud,15,,15,,,,600,1,0,0,0,0,0,Creates toxic gas,Missiles,,,1
+Antimatter Bomb,WPMissile1x10,80,,27,,,,100,4,0,4,0,0,50,2x damage to systemless rooms,Missiles,,,4
+Blight Bomb,WPMissile1x2PsnCloud,20,,16,,,,450,1,0,0,0,0,0,Creates poison clouds over a large area,Missiles,,,1
+Claymore Missile,WPMissile1x3,60,,20,,,,800,3,0,1,10,10,0,,Missiles,,,2
+Displacement Bomb,WPMissileTeleport,35,,10,,,,450,1,0,0,0,0,0,Teleports all crew in target room to opposing ship. Can target self.,Missiles,,,1
+Disruptor Missile,WPMissileIon1,30,,8,,,,800,0,1,0,0,0,0,,Missiles,,,1
+Flayer Missile,WPMissile1x1Breach,30,,19,,,,800,1,0,1,0,90,0,,Missiles,,,1
+Fury Missile,WPMissileSprint,25,,6,,,,1200,1,0,1,0,0,0,,Missiles,,,2
+Gladius Missile,WPMissile1x1Basic,10,,16,,,,800,1,0,1,0,0,0,,Missiles,,,1
+Graviton Bomb,WPMissile1x1Slow,10,,10,,,,450,0,0,0,0,0,0,Slow all crew near target room for 30 seconds,Missiles,,,1
+Heavy Disruptor Missile,WPMissileIon2,40,,16,,,,600,0,3,0,0,0,0,,Missiles,,,1
+Heavy Flayer Missile,WPMissile1x2Breach,35,,21,,,,800,2,0,1,0,80,0,,Missiles,,,1
+Hellfire Missile,WPMissileFire,25,,15,,,,800,1,0,0,100,0,0,,Missiles,,,1
+Incendiary Missile,WPMissileFire2,10,,14,,,,800,0,0,0,100,0,0,,Missiles,,,1
+Rift Bomb,WPMissileWarp,40,,18,,,,450,2,0,0,0,0,100,,Missiles,,,1
+Sabre Missile,WPMissile1x2,35,,18,,,,800,2,0,1,10,10,0,,Missiles,,,1
+Shiv Missile,WPMissile1x1,15,,14,,,,800,1,0,2,10,10,0,,Missiles,,,1
+Siege Missile,WPMissile1x2Hull,35,,20,,,,800,2,0,1,10,10,0,2x damage to systemless rooms,Missiles,,,1
+Terror Missile,WPMissileStun,30,,18,,,,800,1,0,0,0,0,0,Stuns crew in target room and adjacent rooms for 8 seconds,Missiles,,,1
+Auto-Disruptor,WPDisruptorRapid,60,3,4,0,1,,450,0,1,0,0,0,0,,Standard,,,
+Bolt Cannon,WPCannon1,20,1,10,0,1,,900,1,0,1,20,5,0,,Standard,,,
+Displacement Field Emitter,WPCannon1Teleport,30,1,11,0,1,,900,1,0,0,0,0,0,Teleports all crew in target room to opposing ship,Standard,,,
+Disruptor,WPDisruptor,30,1,9,0,1,,450,0,1,0,0,0,0,,Standard,,,
+Flayer Cannon,WPCannon2Breach,60,1,13,0,2,,900,0,0,0,0,100,0,,Standard,,,
+Graviton Cannon,WPCannonSlow1,30,1,9,0,1,,900,1,0,0,0,0,0,Slow all crew in target room for 20 seconds,Standard,,,
+Heavy Disruptor,WPDisruptorHeavy,60,2,20,0,1,,450,0,3,0,0,0,0,,Standard,,,
+Hull Ripper I,WPCannonHull1,40,2,15,0,2,,900,1,0,0,0,0,0,2x damage to systemless rooms,Standard,,,
+Hull Ripper II,WPCannonHull2,60,3,18,0,4,,900,1,0,0,0,0,0,2x damage to systemless rooms,Standard,,,
+Macro Disruptor,WPDisruptorMacro,60,3,30,0,1,,450,0,5,0,0,0,0,,Standard,,,
+Penetrator,WPCannon1x2Pierce,60,2,12,1,1,,900,2,0,2,10,10,0,,Standard,,,
+Putrefactor I,WPCannonPsnCloud1,30,1,12,0,1,,900,1,0,0,0,0,0,Creates toxic gas,Standard,,,
+Putrefactor II,WPCannonPsnCloud2,60,1,17,0,2,,900,1,0,0,0,0,0,Creates toxic gas,Standard,,,
+Radium Blaster I,WPCannonCrew1,30,1,11,0,1,,450,0,0,30,0,0,0,,Standard,,,
+Radium Blaster II,WPCannonCrew2,60,2,13,0,2,,450,0,0,30,0,0,0,,Standard,,,
+Retributor I,WPBlessedCannon1,40,1,12,0,1,,900,1,0,0,30,0,0,,Standard,,,
+Retributor II,WPBlessedCannon2,60,1,16,0,2,,900,1,0,0,30,0,0,,Standard,,,
+Retributor III,WPBlessedCannon3,80,2,19,0,3,,900,1,0,0,30,0,0,,Standard,,,
+Storm Cannon I,WPCannon2,60,2,12,0,2,,900,1,0,1,5,0,0,,Standard,,,
+Storm Cannon II,WPCannon3,80,2,16,0,3,,900,1,0,2,5,0,0,,Standard,,,
+Storm Cannon III,WPCannon6,120,3,22,0,6,,900,1,0,1,1,2,0,,Standard,,,
+Thunder Cannon,WPCannon1x2,60,1,12,0,1,,900,2,0,2,10,10,0,,Standard,,,
+Twin Disruptor,WPDisruptor2,60,2,11,0,2,,450,0,1,0,0,0,0,,Standard,,,

@@ -1,0 +1,24 @@
+Name,Id,Scrap,Description,Cooldown
+Ancient Translocator,ItemTeleportSelfTarget_exile,30,Teleport self to target room.,14
+Assault Shield,ItemShield_DPS2,25,Reduces enemy DPS by 1+2 DPS,0
+Ballistic Shield,ItemShield_basic,5,Reduces enemy DPS by 1,0
+Cathedral Ward,ItemWard_DG_HP10_slow,30,Enemy DPS cannot exceed 2+10 HP-25% move speed,0
+Chaos Engine,ItemTeleportRoomRandom,25,Teleport all crew in current room to random rooms on opposing ship,10
+Chronofield,ItemWard_DG_DPS,30,Enemy DPS cannot exceed 2+1 DPS,0
+Combat Shield,ItemShield_DPS1,20,Reduces enemy DPS by 1+1 DPS,0
+Fortress Shield,ItemShield_HP20_slow,30,Reduces enemy DPS by 1+20 HP-25% move speed,0
+Heavy Translocator,ItemTeleportRoomTarget,50,Teleport self and nearby allied crew to target room.,20
+Imperial Aegis,ItemShield_HP10,20,Reduces enemy DPS by 1+10 HP,0
+Oxygen Tank,ItemOxygenTank,10,Immunity to suffocation,0
+Parasite Shield,ItemShield_speed_negHP5,15,Reduces enemy DPS by 1+25% move speed-5 max HP,0
+Power Field,ItemPowerField,20,+10 max HP,0
+Prismatic Veil,ItemWard_DG_basic,25,Enemy DPS cannot exceed 2,0
+Riot Shield,ItemShield_stunSlow,25,Reduces enemy DPS by 1Stuns nearby enemies for 5 seconds on kill-25% move speed,0
+Ritual Knife,ItemRitualKnife,2,A token of faith and duty. Activate to spill blood upon the ground,10
+Rock Crusher,ItemBreachHull_roughneck,30,Create a hull breach nearby.,3
+Servo-Arm,ItemServoArm,15,Repair speed +50%; +1 DPS,0
+Tactical Shield,ItemShield_HP5,15,Reduces enemy DPS by 1+5 HP,0
+Translocator,ItemTeleportSelfTarget,30,Teleport self to target room.,20
+Unholy Talisman,ItemWard_DG_speed_negHP5,30,Enemy DPS cannot exceed 2+25% move speed-5 maximum HP,0
+Unstable Translocator,ItemTeleportSelfTarget_cyberfused,30,Teleport self into target room. 25% Chance to deal 15 HP damage to enemies in target room.,24
+Welding Torch,ItemWeldingTorch,5,+50% repair speed,0

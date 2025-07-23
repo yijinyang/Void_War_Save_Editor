@@ -1,0 +1,13 @@
+Name,Id,Scrap,Description
+Chaos Armor,ItemArmor_basic30,35,+30 HP
+Combat Mesh,ItemArmor_basic5,5,+5 HP
+Duraplate Armor,ItemArmor_basic15,20,+15 HP
+Ferro-plas Vest,ItemArmor_basic10,10,+10 HP
+Fetid Rags,ItemArmor_psnImm,10,Immune to poison; Poison DPS +2
+Fire Suit,ItemArmor_fireImm,20,Immunity to fire
+Heavy Duraplate Armor,ItemArmor_basic20,25,+20 HP
+Hellfire Cuirass,ItemArmor_fireImm10,35,+20 HP; Immunity to fire
+Pressure Suit,ItemArmor_vacImm,20,Immunity to suffocation
+Siege Armor,ItemArmor_slowVacImm20,35,+20 HPImmunity to suffocation-25% move speed
+Tactical Armor,ItemArmor_basic10_vacRes,15,+10 HP; +50% suffocation resistance
+Tactical Exoskeleton,ItemArmor_speedVacRes15,30,+15 HP+50% suffocation resistance+25% move speed
