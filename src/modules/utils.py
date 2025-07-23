@@ -7,7 +7,7 @@ def get_logger() -> logging.Logger:
 
     The logger is configured to log messages to the console with a specific format.
     """
-    logger = logging.getLogger("VoidWarSaveEditor")
+    logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
     stream_handler = logging.StreamHandler()
     formatter = logging.Formatter(

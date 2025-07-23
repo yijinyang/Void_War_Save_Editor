@@ -32,13 +32,20 @@ class SaveManager:
         self.save_data: dict = {}
 
         self.save_file_path = self._get_user_save_file()
-        if self.save_file_path:
-            self._create_backup()
-            self._load_save_data()
+        if not self.save_file_path:
+            logger.info("No save file selected. Exiting SaveManager initialization.")
+            return
+        self._create_backup()
+        self._load_save_data()
 
         if self.save_data_raw:
             try:
-                self.save_data = ast.literal_eval(self.save_data_raw)
+                # Remove null bytes and fix lowercase booleans before parsing
+                cleaned_data = self.save_data_raw.replace("\x00", "")
+                cleaned_data = cleaned_data.replace("true", "True").replace(
+                    "false", "False"
+                )
+                self.save_data = ast.literal_eval(cleaned_data)
             except (SyntaxError, ValueError) as e:
                 logger.error(f"Failed to convert save data: {str(e)}")
                 raise
@@ -71,10 +78,14 @@ class SaveManager:
         file_path = filedialog.askopenfilename(
             title="Select Void War autosav.sav",
             initialdir=str(initial_dir),
-            filetypes=(("Save files", "autosav.sav"), ("All files", "*.*")),
+            filetypes=(("Save files", "*.sav"), ("All files", "*.*")),
         )
-        if file_path and Path(file_path).name != "autosav.sav":
-            raise ValueError("Selected file must be named 'autosav.sav'")
+
+        logger.debug(f"User selected file: {file_path}")
+        if file_path and Path(file_path).name != "autosave.sav":
+            raise ValueError(
+                f"Selected file must be named 'autosave.sav'. Selected: {file_path}"
+            )
         return Path(file_path)
 
     def _create_backup(self):
@@ -132,11 +143,14 @@ class SaveManager:
         """Get a list of all equipment in the player's inventory."""
         return self.player_data.get(self.EQUIPMENT_LIST_TAG, [])
 
-    def set_equipment_list(self, equipment_list: list):
+    def set_equipment_list(
+        self, equipment_list: list, equipment_quantities: list = None
+    ):
         """Set the player's equipment list and update related quantities.
 
         Args:
             equipment_list (list): The new equipment list to set.
+            equipment_quantities (list, optional): The corresponding quantities for each equipment slot.
         """
         if not isinstance(equipment_list, list):
             raise ValueError("Equipment list must be a list.")
@@ -148,12 +162,20 @@ class SaveManager:
         self.player_data[self.EQUIPMENT_LIST_TAG] = equipment_list
 
         # Update equipment quantities
-        equipment_quantities = [
-            1 if item != self.EMPTY_SLOT else 0 for item in equipment_list
-        ]
-        self.player_data[self.EQUIPMENT_QUANTITY_TAG] = equipment_quantities
+        if equipment_quantities is not None:
+            # Fill/truncate quantities to match equipment slots
+            while len(equipment_quantities) < self.equipment_max_storage_count:
+                equipment_quantities.append(0)
+            equipment_quantities = equipment_quantities[
+                : self.equipment_max_storage_count
+            ]
+            self.player_data[self.EQUIPMENT_QUANTITY_TAG] = equipment_quantities
+        else:
+            self.player_data[self.EQUIPMENT_QUANTITY_TAG] = [
+                1 if item != self.EMPTY_SLOT else 0 for item in equipment_list
+            ]
 
-        # Update equpipment viewed status
+        # Update equipment viewed status
         equipment_viewed = [
             False if item == self.EMPTY_SLOT else True for item in equipment_list
         ]
