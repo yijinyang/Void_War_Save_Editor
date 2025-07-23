@@ -186,6 +186,10 @@ class SaveManager:
             equipment_quantities = equipment_quantities[
                 : self.equipment_max_storage_count
             ]
+            equipment_quantities = [
+                enforce_positive_float(qty) if qty != self.EMPTY_SLOT else 0.0
+                for qty in equipment_quantities
+            ]
             self.player_data[self.EQUIPMENT_QUANTITY_TAG] = equipment_quantities
         else:
             self.player_data[self.EQUIPMENT_QUANTITY_TAG] = [
